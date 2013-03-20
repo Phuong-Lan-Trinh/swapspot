@@ -45,9 +45,6 @@
 		<div class="ajax_loader"></div>
 		
 		<!-- Client Side Templates -->
-		<? Template::partial('home/home_index') ?>
-		<? Template::partial('blog/blog_index') ?>
-		<? Template::partial('courses/courses_index') ?>
 		
 		<!-- Pass in PHP variables to Javascript -->
 		<script>
@@ -56,37 +53,6 @@
 				csrfCookieName: '<?= $this->config->item('cookie_prefix') . $this->config->item('csrf_cookie_name') ?>'
 			};
 		</script>
-		
-		<!-- Vendor Javascripts -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-		<script src="js/vendor/bootstrap.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
-		<script>window.angular || document.write('<script src="js/vendor/angular.min.js"><\/script>')</script>
-		<script src="js/vendor/angular-resource.min.js"></script>
-		<script src="js/vendor/angular-cookies.min.js"></script>
-		
-		<!-- AngularJS Front Controller, Bootstrap and Router -->
-		<script src="js/app.js"></script>
-		
-		<!-- Page Level Controllers -->
-		<script src="js/controllers/Header.Controllers.js"></script>
-		<script src="js/controllers/Footer.Controllers.js"></script>
-		<script src="js/controllers/Home.Controllers.js"></script>
-		<script src="js/controllers/Courses.Controllers.js"></script>
-		<script src="js/controllers/Blog.Controllers.js"></script>
-		
-		<!-- Reusable Services -->
-		<script src="js/services/AjaxLoader.Service.js"></script>
-		<script src="js/services/ErrorResponse.Service.js"></script>
-		<script src="js/services/Courses.Service.js"></script>
-		
-		<!-- Reusable Directives -->
-		<script src="js/directives/EqualiseHeight.Directive.js"></script>
-		<script src="js/directives/Fade.Directive.js"></script>
-		
-		<!-- Reusable Filters -->
-		<script src="js/filters/Interpolate.Filter.js"></script>
 
 		<script>
 			var _gaq=[['_setAccount','<?= $google_analytics_key ?>'],['_trackPageview']];

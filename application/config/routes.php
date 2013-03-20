@@ -72,27 +72,25 @@ Pigeon::map(function($r){
 	//Route all API requests to the correct controller/method
 	$r->route('api', false, function($r){
 		
-		//courses resource, we put in and acquire new courses, so this is where we would setup dates and stuff
-		//each 11 weeks course constitute a subcourse
-		//there could different types!
-		$r->resources('courses');
-		
-		//applications resource, we put in people's applications here
-		$r->resources('applications');
-		
-		
+		//TODO LIST
+
+		//the user schedule resource
+		$r->get('user_schedule', 'user_schedule#index');
+		$r->put('user_schedule', 'user_schedule#update');
+
+		//management of all schedules
+		$r->resources('schedules');
+
+		$r->resources('sessions');
+
 		//migration comment these in production
 		$r->get('migrate', 'migrate/index');
 		$r->get('migrate/revert', 'migrate/revert');
-		
-		//options for CORS will need to be implemented
-		
+				
 	});
 	
 	//Route everything else to AngularJS, no parameters allowed!
-	$r->route('(.*)', 'home#index'); //THIS ONE IS CAUSING A BUG, infinite partial requests due to constant redirection (the relative requests for partials are incorrect) (its fixed now, due to the fixing of the base_url to the javascript code!)
-	//$r->route('(:any)', 'home#index');
-	//$r->route('(:any)/(:any)', 'home#index');
+	$r->route('(.*)', 'home#index');
 	
 });
 
