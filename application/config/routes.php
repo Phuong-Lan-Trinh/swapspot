@@ -83,6 +83,9 @@ Pigeon::map(function($r){
 
 		$r->resources('sessions');
 
+		//user accounts
+		$r->resources('accounts');
+
 		//migration comment these in production
 		$r->get('migrate', 'migrate/index');
 		$r->get('migrate/revert', 'migrate/revert');

@@ -86,11 +86,11 @@ if(ENVIRONMENT == 'development'){
 		'hostname' => 'localhost',
 		'username' => 'root',
 		'password' => '',
-		'database' => 'polycademy2',
+		'database' => 'swapspot',
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
 		'pconnect' => TRUE,
-		'db_debug' => FALSE, //has to be false so we can do our own error logging
+		'db_debug' => TRUE, //has to be false so we can do our own error logging
 		'cache_on' => FALSE,
 		'cachedir' => '',
 		'char_set' => 'utf8',

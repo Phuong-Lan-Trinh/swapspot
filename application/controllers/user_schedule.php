@@ -5,13 +5,15 @@ class User_schedule extends CI_Controller{
 
 	public function __construct(){
 		parent::__construct();
-		//LOADSTUFF
+	
 	}
 
 	//Show the COMPLETE SCHEDULE (ONE AND ONLY ONE!) TO THAT USER BASED ON USER ID
 	public function index(){
-
+		//show 5 best results
+	
 		//GET INPUT FROM JSON
+		
 
 		//PASS IT TO THE MODEL
 

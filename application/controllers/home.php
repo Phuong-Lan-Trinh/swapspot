@@ -13,7 +13,7 @@ class Home extends CI_Controller{
 	}
 	
 	public function index(){
-		
+
 		Template::compose('index', $this->view_data);
 	
 	}
