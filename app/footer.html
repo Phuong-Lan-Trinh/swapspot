@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Footer with Columns, Social Icons, Contact Forms, Sitemap, Copyright Symbol, and the Sticky Footer Method.</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="favicon.ico">
+    	<link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="css/main_footer.css">
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+	
+		<!-- We need a wrap here for the sticky footer method -->
+		<div id="wrap">
+			<header>
+				<!-- It is possible to uses Bootstrap's container-fluid instead of container, but it has different properties. Test them out! -->
+				<div class="container-fluid">
+					<h1>Footer Demonstration</h1>
+				</div>
+			</header>
+			<div class="main">
+				<div class="container">
+					<div class="alert">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<span><strong>Note!</strong> This page demonstrates a sticky footer, which means that the generic skeleton has been modified to suit. The sticky footer is where the footer stays on the bottom of the browser's window even when there is not enough content to push it down. This is not the same as the fixed footer, if there is enough content, then the footer will be pushed down as normal. This isn't usually required because there is usually enough content, but it may be useful for web applications that fit within a single window! However you have to decide whether to use a fixed footer or sticky footer in that case. The disadvantage with using a sticky footer, is that you need to know what your footer's height is at all times, and you need to manually input it. This is alright because footers hardly change after being made!</span>
+					</div>
+					<p>Attributions: <a href="http://thenounproject.com/noun/like/#icon-No6107" target="_blank">Like</a> & <a href="http://thenounproject.com/noun/bird/#icon-No6104" target="_blank">Bird</a> designed by <a href="http://thenounproject.com/tlb" target="_blank">Thomas Le Bas</a> from The Noun Project</p>
+				</div>
+			</div>
+			<!-- This push element will push down the footer to always sit on the bottom of the browser -->
+			<div id="push"></div>
+		</div>
+		
+		<!-- We're going to make this a sticky footer, even though it's not required when the main content pushes it down! So that's why we have a slightly different structure from the generic skeleton. -->
+		<footer>
+			<!-- This footer transition is so we can apply a top border transition colour to help the footer blend in with the top. There are other ways to do this, the only reason we're doing it this way, is because this works with the sticky footer. If we applied a border or padding onto the footer itself, it would stuff up the stickiness. If we didn't need to worry about the sticky footer, we could simply apply the border onto the footer itself, or to the main content's bottom when it pushes down the footer. -->
+			<div class="footer_transition">
+				<div class="container">
+					<!-- This creates a horizontal row that is fluid, based on 12 columns -->
+					<div class="row-fluid">
+						<!-- This section creates a 6 column section, we also class it as left_footer -->
+						<section class="span6 left_footer">
+							<h3>Contact Us!</h3>
+							<!-- Bootstrap style form-horizontal, you'll notice my classes are alway underscore (_) and bootstrap classes are hyphen (-) based. This will make a form with the labels on the left of the inputs! -->
+							<form class="contact_us_form form-horizontal" accept-charset="utf-8" method="post" action="#">
+								<!-- A control group defines the labels, inputs, highlights and messages of a single block of controls. You can use a fieldset as well, but it's not necessary! -->
+								<div class="control-group">
+									<!-- Labels are the accessible definition of a form input, bootstrap by default styles it. The for attribute points it to the particular input. This way when you click on it, it will automatically put the cursor on the input. -->
+									<label class="control-label" for="inputEmail">Email</label>
+									<div class="controls">
+										<!-- Something extra, we put input-append to create a small icon that is appended to the right. These styles are provided by Bootstrap. -->
+										<div class="input-append">
+											<!-- The input-block-level class makes the input stretchout to the container. However due to the input-append, it doesn't, so you'll need to manually set the width. Remove the input-append and the span add-on to see it stretch to the container width. -->
+											<input class="input-block-level" type="text" id="inputEmail" placeholder="Email" name="email" />
+											<!-- This is the add on, that is appended on tht end of the input. It has a icon-inbox, which is graphical icons provided by Bootstrap. The i element is just convention. It is supposed to mean italics, but here it means nothing. -->
+											<span class="add-on"><i class="icon-inbox"></i></span>
+										</div>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="inputMessage">Message</label>
+									<div class="controls">
+										<!-- You can specify the rows attribute here, or you can just do it in the CSS. Here it's for demonstration, but I prefer styling to be put in the CSS. -->
+										<textarea class="input-block-level" id="inputMessage" placeholder="Message" name="message" rows="5"></textarea>
+									</div>
+								</div>
+								<div class="control-group">
+									<div class="controls">
+										<label class="checkbox">
+											<!-- Inputs can be placed inside labels. Do this when you want the input and label to be on the same line. The positioning of these is again provided by bootstrap. -->
+											<input type="checkbox" name="newsletters" value="yes" /> Subscribe to our newsletters
+										</label>
+										<!-- The btn-primary class gives it bootstrap styles that make it the primary focus! -->
+										<button type="submit" class="btn btn-primary contact_submit" name="submit" value="true">Send Message</button>
+									</div>
+								</div>
+							</form>
+						</section>
+						<section class="span6 right_footer">
+							<h3>Follow Us!</h3>
+							<!-- If you weren't using row-fluid, the rows would be nested and the base span would be the span of the container. Since we're using row-fluid, we can calculate from a base of 12 again. -->
+							<div class="row-fluid">
+								<div class="span5 social_icons">
+									<ul>
+										<li class="facebook"><a href="https://facebook.com/Polycademy">Facebook</a></li>
+										<li class="twitter"><a href="https://twitter.com/Polycademy">Twitter</a></li>
+									</ul>
+								</div>
+								<div class="span7">
+									<h4>Site Map Archives</h4>
+									<ul class="sitemap">
+										<li><a href="#">home</li>
+										<li><a href="#">about</li>
+										<li><a href="#">contact</li>
+										<li><a href="#">developers</li>
+										<li><a href="#">jobs</li>
+										<li><a href="#">partners</li>
+										<li><a href="#">wiki</li>
+										<li><a href="#">legal</li>
+										<li><a href="#">refunds</li>
+										<li><a href="#">terms of service</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+					</div>
+					<span class="copyright">© Polycademy & Code for Australia &#x221e;</span>
+				</div>
+			</div>
+		</footer>
+		
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

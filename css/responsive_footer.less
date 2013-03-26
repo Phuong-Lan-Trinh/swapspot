@@ -1,0 +1,49 @@
+/* ==========================================================================
+   FOOTER.html
+   ========================================================================== */
+body{
+	padding: 0;/* Bootstrap automatically adds side paddings when you minimise the browser window, I don't want that here. Try removing this to see what happens! */
+}
+
+@media (min-width: 767px) and (max-width: 1200px) {
+	
+	footer{
+		.right_footer .social_icons ul li{
+			font-size: 20px; /* Only between the 767 and 1200, this is when the social icons get a bit squeezed. Below 767, it stacks, so there's plenty of space */
+		}
+	}
+	
+}
+
+/* 767px is the point where Bootstrap will stack rows. Remember this! Or try hard to find it! */
+@media (max-width: 767px) {
+	
+	/* When the screen minimises, we need to increase the footer height to match and override the original values. */
+	
+	@footer_height: 720px;
+	
+	#wrap{
+		margin: 0 auto -@footer_height;
+	}
+	
+	#push{
+		height: @footer_height;
+	}
+	
+	footer{
+		height: @footer_height;
+		.right_footer .social_icons{
+			/* We're doing a very specific selector, because we have to override its precedence, by specifying the same specificity. */
+			border: none; /* Remove the side border as its no longer useful! */
+			ul{
+				margin-top: 0;
+				text-align: center; /* We're centering the socila icons */
+				li{
+					display: inline-block;
+					margin: 0 20px;
+				}
+			}
+		}
+	}
+	
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Display Positioning with Z-index</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="favicon.ico">
+    	<link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="css/main_display.css">
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+        <header>
+			<div class="container">
+				<h1>Display Positioning with Z-index Demos</h1>
+			</div>
+		</header>
+		
+		<div class="main">
+			<div class="container">
+				<div class="alert">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<span><strong>Note!</strong> This demo requires you to play around with the settings to see how the display, positioning and z-index properties work. You'll notice that we have an horizontal scrollbar here. This is because we're using block level elements, and the positioning rules will affect their whole width. We would need to either give them a specific smaller width, or make them display: inline-block or display:inline, both works, but inline-block is more appropriate for images. Use firebug or your web developer tools to see the layout as you change the settings.</span>
+				</div>
+				<!-- We're going to use a map and overlay elements on top or behind it to show the power of the display properties along with z-index. -->
+				<div class="map">
+					<div class="static" title="Static Div">
+						<img src="img/location_pointer.png" />
+					</div>
+					<div class="relative" title="Relative Div">
+						<img src="img/location_pointer.png" />
+					</div>
+					<div class="dummy" title="Dummy Div">
+						<img src="img/location_pointer.png" />
+					</div>
+					<div class="absolute" title="Absolute Div">
+						<img src="img/location_pointer.png" />
+					</div>
+					<div class="fixed" title="Fixed Div">
+						<img src="img/location_pointer.png" />
+					</div>
+					<div class="zindex" title="Zindex Div, you wont see this because it will be behind!">
+						<img src="img/location_pointer.png" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<footer>
+			<div class="container">
+				<h2>Dummy Footer</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat ligula id purus porta id mollis est volutpat. Nulla at eros et turpis ultricies aliquet. Donec eu enim accumsan nunc cursus placerat. Mauris ac sapien quis ante viverra varius eu a augue. Sed feugiat dignissim nunc id accumsan. In hac habitasse platea dictumst. Nunc sit amet erat vitae ipsum congue accumsan nec malesuada tellus. Fusce venenatis sodales vehicula. Sed accumsan congue rhoncus. Cras faucibus quam quam. Suspendisse aliquet volutpat elit a adipiscing. Donec vel enim ligula. Nulla nec vestibulum nulla. Vestibulum sit amet elit neque, ut tincidunt libero.</p>
+				<p>Phasellus vehicula posuere est, at pellentesque dolor consectetur quis. Aliquam ut lacinia justo. Cras quis leo purus, sed cursus velit. Nulla ullamcorper cursus dolor, ut faucibus mauris cursus ac. Nunc vitae nibh a odio hendrerit dictum at sit amet turpis. Morbi imperdiet dapibus lorem, vel ullamcorper ligula vestibulum id. Nulla euismod adipiscing vehicula. Pellentesque a molestie quam. In vitae neque purus, vitae tempor leo. Phasellus vitae lorem ligula.</p>
+				<p>Sed ac elit orci, ut fringilla enim. Mauris consectetur sagittis fringilla. In varius nulla eu lectus pretium in laoreet tortor accumsan. Nam ultricies nisl ut risus porta non porta augue vehicula. Pellentesque nibh diam, lacinia condimentum pellentesque at, hendrerit eget nunc. Cras quam ipsum, pulvinar a blandit et, sagittis eu ligula. Mauris sodales lectus ut nulla tincidunt dignissim. Sed sagittis egestas vestibulum. Etiam ultricies, lectus in venenatis venenatis, libero elit vehicula ligula, id pulvinar augue erat faucibus tortor. Sed a sodales nulla. Proin sollicitudin aliquam ante in adipiscing.</p>
+			</div>
+		</footer>
+		
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

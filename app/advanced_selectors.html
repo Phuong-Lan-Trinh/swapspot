@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Advanced Selectors Demo</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="favicon.ico">
+    	<link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="css/main_advanced_selectors.css">
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+        
+        <header>
+            <div class="container">
+				<h1>Advanced Selectors Demo</h1>
+				<div class="alert">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<span><strong>Try This!</strong> As you use more and more advanced selectors, the browser support gets weaker. So try avoiding using complex selectors unless you really need it. KISS.</span>
+				</div>
+			</div>
+        </header>
+		
+		<div class="main">
+			<div class="container">
+				<article>
+					<h2>Some Dummy header!</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet tortor magna, sodales sollicitudin dui. Duis ullamcorper tempus lorem, id interdum neque placerat ut. Curabitur euismod eros ac orci feugiat posuere. Donec congue nisl at turpis consectetur tempus. Aliquam erat volutpat. Aenean a purus eros. Nullam venenatis, turpis vitae suscipit eleifend, justo erat tempus mi, ut ultrices magna dolor adipiscing magna. Sed venenatis tellus ac ipsum blandit porta a vel diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut ut placerat odio. Phasellus augue neque, luctus sit amet tincidunt eu, congue eget arcu. Duis congue laoreet mauris, vel mattis mi tempor et. Nunc ut ullamcorper purus. Nullam nunc eros, congue eu sagittis id, tempus et odio.</p>
+					<p class="dontselectthis">Curabitur sem lorem, egestas nec rhoncus vitae, consequat at mi. Fusce in diam lacus, at pretium justo. Aenean rhoncus cursus sapien vitae gravida. Cras interdum turpis id ante ultricies nec ullamcorper leo ullamcorper. Phasellus ac aliquet risus. Nam commodo eros ut sapien consectetur sed malesuada nibh tristique. In ultrices justo quis enim feugiat condimentum in ut felis. Proin pulvinar nibh nec turpis gravida quis blandit ipsum lobortis. Nunc id mi sit amet leo sagittis pellentesque a in nisl. Curabitur elementum mollis mi vel fermentum. Donec fermentum ligula posuere ante accumsan a gravida libero interdum. Quisque tellus diam, iaculis sed ullamcorper quis, interdum tempus elit. Nam vel urna sed mi semper imperdiet et nec dui. Mauris vestibulum magna in quam vulputate ultricies sollicitudin ut mauris.</p>
+					<ul>
+						<li title="this is a list item">Item 1</li>
+						<li title="this is quite specific">Item 2</li>
+						<li>Item 3</li>
+					</ul>
+					<p>Etiam quis augue lorem. Praesent dictum ligula id purus consequat ultricies non ac ligula. Sed placerat, arcu at euismod tincidunt, diam libero porttitor tortor, eget tincidunt sem tortor ac ipsum. Pellentesque blandit erat hendrerit eros sagittis porttitor. Sed condimentum bibendum lectus non gravida. Donec a mi a magna mollis sollicitudin vel nec risus. Nunc nisi sapien, pellentesque at tincidunt at, rutrum ut mi. Fusce felis ante, convallis ac molestie sed, scelerisque in erat. Proin sodales mauris eu arcu fermentum ut semper mauris eleifend. Aliquam metus risus, vestibulum non aliquet vitae, dapibus et ligula.</p>
+					<p>Nullam rutrum, odio ut pretium sollicitudin, odio arcu convallis massa, sed hendrerit sem nulla quis leo. Integer pulvinar erat et urna luctus viverra ut nec mi. Proin velit massa, suscipit at hendrerit sit amet, hendrerit eu erat. Donec et libero quis eros molestie dapibus. Proin dignissim auctor placerat. Suspendisse vitae dolor ligula. Curabitur risus sem, viverra in fringilla ut, malesuada id enim. Mauris iaculis ipsum quis orci volutpat mattis. Sed malesuada mi sit amet odio eleifend sodales. Vestibulum ac eros lacus.</p>
+					<blockquote>
+						<p>This blockquote will have content before and after via CSS.</p>
+					</blockquote>
+					<p>Proin justo diam, imperdiet non euismod vitae, consectetur et neque. Quisque vel tincidunt lacus. Aenean ante magna, varius sed rutrum eget, suscipit sit amet leo. Vestibulum magna mi, ultricies sed mattis a, bibendum et quam. Aliquam erat volutpat. Aliquam in neque leo, sit amet scelerisque odio. Sed facilisis nisi id mauris faucibus faucibus. Donec nec erat id augue feugiat euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In at sapien nunc, ut congue arcu. Morbi lacinia purus et sapien euismod eget viverra justo luctus. Morbi vel dapibus quam. </p>
+				</article>
+				<div class="surprise">  
+					<p> My paragraph here. </p>  
+					<ul>  
+						<li> List Item 1 </li>  
+						<li class="select_this_guy_without_using_this_class"> List Item 2 </li>  
+					</ul>  
+					<ul>  
+						<li> List Item 3 </li>  
+						<li> List Item 4 </li>  
+					</ul>  
+				</div>
+			</div>
+		</div>
+		
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

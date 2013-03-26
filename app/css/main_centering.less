@@ -1,0 +1,75 @@
+/* ==========================================================================
+   IMPORT MIXINS ELEMENTS PRESETS
+   ========================================================================== */
+@import url("bootstrap.less");
+
+
+/* ==========================================================================
+   CONTAINERS
+   ========================================================================== */
+.container{
+	padding: 16px;
+}
+
+/* ==========================================================================
+   CENTERING.html
+   ========================================================================== */
+.vertical{
+	/* There are many ways of positioning things vertically, but this is the easiest. It does have a drawback of not working in old IE versions. Furthermore another method for images would be setting it on the background instead. */
+	height: 400px;
+	width: 400px;
+	margin: 10px;
+	background: #ccc;
+	display: table; /* To vertically center the text, we need to display it as a table. */
+	.centered{
+		/* The below rules would be enough to center the text, the image would just require vertical-align, in fact that's already defined by bootstrap, but let's be specific! */
+		display: table-cell;
+		vertical-align: middle; /* Note that vertical-align applies to inline elements! Or table-cells! */
+	}
+}
+
+/* Horizontal centering is easy! */
+.horizontal{
+	margin: 10px;
+	height: 400px;
+	width: 400px;
+	background: #ccc;
+	p{
+		margin: 0 auto;
+		display: block;
+		width: 100px;
+	}
+	img{
+		margin: 0 auto;
+		display: block;
+	}
+}
+
+.vertical_horizontal{
+	/* Combining the horizontal and vertical centering! */
+	margin: 10px;
+	height: 400px;
+	width: 400px;
+	background: #ccc;
+	display: table;
+	.centered{
+		/* Vertical centering! */
+		vertical-align: middle;
+		display: table-cell;
+		p{
+			/* Horizontal centering */
+			width: 100px;
+			margin: 0 auto;
+		}
+		img{
+			/* Horizontal centering */
+			display: block;
+			margin: 0 auto;
+		}
+	}
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@import url("bootstrap-responsive.less");

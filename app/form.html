@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Forms Demo</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="favicon.ico">
+    	<link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="css/main_form.css">
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+	
+        <header>
+            <div class="container">
+				<h1>Forms Demo</h1>
+				<div class="alert">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<span><strong>Try This!</strong> Resize your browser to see stacking effect!</span>
+				</div>
+            </div>
+        </header>
+		
+		<div class="main">
+			<div class="container">
+				<form class="form-horizontal" accept-charset="utf-8" method="post" action="#">
+					<h2>Course Application Form</h2>
+					<!-- Use fieldsets to setout sections of your form. -->
+					<fieldset>
+						<legend>Personal Details <small>required</small></legend>
+						<div class="control-group">
+							<!-- Because this label is for two inputs, when clicked on, the label won't focus the cursor onto any input-->
+							<label class="control-label" for="form_full_name">Name</label>
+							<!-- Use the controls-row class to get these two inline with each other-->
+							<div class="controls controls-row">
+								<!-- The ids here are actually unnecessary, but kept here for consistency. The name attribute is actually the key for the input when passed into the server or javascript to handle. The [first] or [last] turns it into an array of variables. So that name can contain first or last. -->
+								<input type="text" id="form_first_name" name="name[first]" placeholder="Enter First Name!" />
+								<input type="text" id="form_last_name" name="name[last]" placeholder="Enter Last Name!" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="form_email">Email</label>
+							<div class="controls">
+								<!-- Bootstrap creates a required attribute with special classes that turn the highlight into red instead of the normal blue when you click on the form input. Required is an html5 attribute, so html5 aware browsers will apply their custom styles to it aswell. -->
+								<input type="text" id="form_email" name="email" placeholder="Enter your Email!" required />
+								<!-- Use help-blocks for a longer description of what you expect of the form input-->
+								<span class="help-block">We don't send spam we expect you to not send spam to us!</span>
+							</div>
+						</div>
+						<!-- Notice the warning extra class, this what you use dynamically if you were to tell the user something went wrong such as bad form input. There are other classes available, check on Bootstrap docs -->
+						<div class="control-group warning">
+							<label class="control-label" for="form_address">Address</label>
+							<div class="controls">
+								<input type="text" id="form_address" name="address" placeholder="Enter your Address!" />
+								<!-- This is the then the inline help text that you use dynamically. You cana also help-inline in the same way as help-block -->
+								<span class="help-inline">Please use your business address!</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="form_website">Website:</label>
+							<div class="controls">
+								<!-- HTML5 provides new types to our inputs. Such as for example the url type. Browsers will try to automatically validae. The pattern attribute is for HTML5, it uses javascript to apply a regex pattern to the input. This makes sure it has http:// or https://. Modern browsers will automatically notify you if you did something wrong. The pattern is based on regex, so look that up if you don't know what it is. -->
+								<input type="url" id="form_website" name="website" pattern="https?://.+" required />
+							</div>
+						</div>
+					</fieldset>
+					<fieldset>
+						<!-- Legends are titles of your form. -->
+						<legend>Feedback</legend>
+						<div class="control-group">
+							<label class="control-label" for="form_feedback">Feedback</label>
+							<div class="controls">
+								<!-- You can use the spanX or input-block-level to specify sizes of the inputs -->
+								<textarea class="input-block-level" id="form_feedback" name="feedback" rows="10" placeholder="We would like to hear your feedback!"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<!-- Inputs can be put inside the label, this is so that the label is actually the inline text to the right of the checkbox. The for attribute here is unnecessary, but is kept here for consistency.-->
+								<label class="checkbox" for="form_newsletter">
+									<!-- The value is important here as it will be passed to the server. The checked attribute can be set dynamically for the user to remember what he checked, especially if you need to refresh the form. -->
+									<input type="checkbox" id="form_newsletter" value="yes" checked="checked" />
+									Check this if you want to receive our newsletter!
+								</label>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="form_service">Service Rating</label>
+							<div class="controls">
+								<select id="form_service" name="service">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option selected="selected">5</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="form_cats">Select Cats you Like</label>
+							<div class="controls">
+								<!-- Multiselect! -->
+								<select id="form_cats" name="cats" multiple="multiple">
+									<option>Tabby</option>
+									<option>Groucher</option>
+									<option>Ruger</option>
+									<option>Wacky</option>
+								</select>
+							</div>
+						</div>
+					</fieldset>
+					<!-- Bootstrap adds a white background to the form-actions, you can override that later. -->
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="button" class="btn btn-info">Do something else!</button>
+						<button type="reset" class="btn btn-danger">Reset Input</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

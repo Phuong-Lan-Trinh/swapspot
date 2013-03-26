@@ -1,0 +1,142 @@
+/* ==========================================================================
+   IMPORT MIXINS ELEMENTS PRESETS
+   ========================================================================== */
+@import url("bootstrap.less");
+
+/* ==========================================================================
+   VARIABLES
+   ========================================================================== */
+@footer_height: 440px; /* We define the footer height here because it needs to be used by the sticky footer rules and your own rules. Basically multiple definitions means that you should use a variable. */
+
+/* ==========================================================================
+   MIXINS
+   ========================================================================== */
+/* Demonstration of a less mixin, kind of like a CSS function you can call, you can see that @blur and @colour both have defaults already defined, they can be overridden as you pass in parameters. This isn't necessary, you can delcare text-shadow normally, but it's here for demonstration. */
+.text_shadow(@horizontal, @vertical, @blur: 1px, @colour: #000){
+	text-shadow: @horizontal @vertical @blur @colour; /* CSS3 text shadow */
+	/* This won't work in IE. There is a hack, but it isn't pretty. */
+}
+
+.border_box{
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+   
+/* ==========================================================================
+   STICKY FOOTER HACK
+   ========================================================================== */
+html, body{
+	height: 100%; /* In order fo the wrap to occupy the whole page, we need to give this a height of 100%. See what happens when you remove this rule. */
+}
+
+/* We're using ids here, to show that there should only be one wrap and one push for each page. */
+#wrap{
+	min-height: 100%;	/* Since the body has a height of 100%, we can make the wrap wrap to the content of the browser window, or if there was more content, it will wrap the whole page. */
+	height: auto !important; /* These are IE 6 hacks, because ie6 does not recognise the min-height */
+	height: 100%;
+	margin: 0 auto -@footer_height; /* These 3 property style equates to (top left/right bottom). The variable is being used here, and is defined to be negative. This negative bottom margin, pulls in the next element to overlap over the wrap, it is defined at the footer_height because we want to pull in the same distance as the height of the footer. Refer to negative margins to learn more. */
+}
+
+#push{
+	height: @footer_height; /* The push is inside the the wrap, this counteracts the negative margin, by pushing out anything that was pulled in to overlap by the negative margin. */
+	clear: both; /* Clear is used here incase floats are used in the layout, we don't want floats on the same level as the push. */
+}
+
+/* ==========================================================================
+   CONTAINERS
+   ========================================================================== */
+.container{
+	padding: 16px;
+}
+
+/* ==========================================================================
+   FOOTER.html
+   ========================================================================== */
+footer{
+	height: @footer_height; /* Finally, we have the footer height here! */
+	background: #494949;
+	clear: both;
+	color: #bbb1b1; /* Colours are inherited among all elements! */
+	.footer_transition{
+		border-top: 2px solid #c3c3c3;
+	}
+	h3{
+		color: #212121;
+		.text_shadow(0px, 1px, 1px, #9A9898); /* Executing the LESS mixin to create a text shadow that makes the text look inset. */
+	}
+	.left_footer{
+		.contact_us_form{
+			/* We're centering the form and giving it a fluid width based on the container width. */
+			margin: 30px auto;
+			width: 80%;
+			.control-group{
+				label{
+					width: 60px; /* This is overriding the default bootstrap label width, it reduces the distance between the left side to the beginning the label. Adjust this to see what happens. */
+				}
+				label.checkbox{
+					width: 180px; /* Because the checkbox label is on the right side, we should give it more space, or else it looks squeezed in. Adjust this to see what happens. */
+				}
+				.controls{
+					margin-left: 80px; /* Because we changed the width of the label, the controls will be too far away from the labels. We decrease the margin-left in order to keep them close to show proximity. */
+				}
+			}
+			.contact_submit{
+				margin-top: 10px;
+			}
+		}
+	}
+	.right_footer{
+		.social_icons{
+			border-right: 1px dotted #ccc;
+			.border_box; /* mixin, remember when padding/border expands the width/height of the box? Well this does the opposite. But defining it as a border-box, the border-right I defined doesn't change the box width. This means it won't conflict with the other column on the right. If I removed it, it wouldn't act as a column! This is actually no longer requires in latest versions of bootstrap, as they do it automatically. */
+			ul{
+				margin-top: 40px;
+				margin-bottom: 40px;
+				list-style-type: none; /* These remove the dot markers! */
+				li{
+					font-size: 24px;
+					font-weight: bold;
+					margin-bottom: 20px;
+					&:before{
+						position: relative; /* These rules cascade onto the facebook and twitter befores. We're using position relative, because these elements don't actually exist in the HTML, so we should specify the position: relative to allow us to use top, right, bottom, left rules to actually position it! */
+						top: 10px;
+						margin-right: 10px; /* The margin left and right still works though. It will push the actual content out to the right a bit, giving it a bit of whitespace */
+					}
+				}
+				li.facebook{
+					&:before{
+						content: url("../img/thumbs.png"); /* The before pseudo selector adds in content, this goes against the separation of content to styling. But it works. Note that the img is ../ because the css is located in the root directory which contains the img directory. */
+					}
+				}
+				li.twitter:before{
+					content: url("../img/bird.png"); /* We don't need to use bootstrap's & style of pseudo selectors too! */
+				}
+			}
+		}
+		.sitemap{
+			width: 80%;
+			margin: 20px auto; /* Centering with 80% width */
+			font-size: 20px;
+			text-align: center; /* This coupled with the li as display: inline-block actually centers the list items and makes them stack horizontally and vertically */
+			li{
+				display: inline-block; /* See what happens if you change this to display: inline, they are no longer a block of content. This means it will wrap around the containing width. Whereas if they were inline-block, they would wrap as a single piece of content */
+				margin: 5px;
+				&:hover{
+					outline: 2px dotted #ccc;
+					outline-offset: 5px;
+				}
+			}
+		}
+	}
+	.copyright{
+		font-size: 10px;
+		float: right;
+	}
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@import url("bootstrap-responsive.less");
+@import url("responsive_footer.less");

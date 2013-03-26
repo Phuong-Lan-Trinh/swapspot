@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Tables with Responsive Features</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="favicon.ico">
+    	<link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="css/main_table.css">
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+        
+        <header>
+            <div class="container">
+				<h1>Tables with Responsive Features</h1>
+				<div class="alert">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<span><strong>Try This!</strong> Resize your browser to see table effect!</span>
+				</div>
+			</div>
+        </header>
+		
+		<!-- Just a note for you to read! -->
+		<div class="main">
+			<div class="container">
+				<!-- Bootstrap provides many default styles, check them out on their docs. -->
+				<table class="product_table table table-striped table-bordered table-hover">
+					<!-- Captions are the title of the table! There can only be one caption per table -->
+					<caption>Table of Products</caption>
+					<!-- This element is used to apply styles to a number of columns simultaneously. The product_features class styling will apply to the last three columns, which product_select being a special column. Once you use one colgroup, you must wrap all columns in colgroups. This is for more granular control of tables. You don't need to use it if you don't need to style it so much. -->
+					<colgroup class="product_id">
+						<col />
+					</colgroup>
+					<colgroup class="product_features">
+						<col />
+						<col />
+						<col />
+						<col class="product_select" />
+					</colgroup>
+					<!-- This becomes the header row of the table! -->
+					<thead>
+						<!-- tr tag specifies a table row. This is the row of the header! You can have multiple tr tags, but that would create multiple table headers. This is unlikely to be useful. -->
+						<tr>
+							<!-- The th specifies a table header. This basically label for a row or col. The label is determined by the scope attribute, which is used by screen readers! -->
+							<th scope="col">ID</th>
+							<th scope="col">Colour</th>
+							<th scope="col">Weight</th>
+							<th scope="col">$$$</th>
+							<!-- We're using some bootstrap icons here. Note that text-align: center works because it is an i element meaning italics. It's kind of hacky but it's more efficient then specifying a image. -->
+							<th scope="col"><i class="icon-ok"></i></th>
+						</tr>
+					</thead>
+					<!-- The tfoot tag must be used in the following context: after any <caption>, <colgroup>, and <thead> elements and before the <tbody>. It's optional to use. You use it for footnotes or ending remarks. -->
+					<tfoot>
+						<tr>
+							<!-- Because it's still a table element, we should increase the colspan so that it matches the total number of columns on the table. This means that this text will span across the table and not be put into its own table element. -->
+							<!-- Note this is a td element meaning table data, it's not a header! -->
+							<td colspan="5">* represent products from third party retailers.</td>
+						</tr>
+					</tfoot>
+					<tbody>
+						<tr>
+							<!-- Notice this th element having a scope of row, because the id can be considered as the heading to this row of elements. It groups it. -->
+							<th scope="row">156</th>
+							<td>White</td>
+							<td>100 kg</td>
+							<td>$400.00</td>
+							<!-- It is possible to use tables within forms, so you can select appropriate data. Here I'm using a button, which could be an action point! -->
+							<td><button class="btn btn-info">Select</button></td>
+						</tr>
+						<tr>
+							<th scope="row">134</th>
+							<td>Black</td>
+							<td>200 kg</td>
+							<td>$900.00</td>
+							<td><button class="btn btn-info">Select</button></td>
+						</tr>
+						<!-- Bootstrap class for making this into a warning! -->
+						<tr class="error">
+							<th scope="row">121</th>
+							<td>Red</td>
+							<td>10 kg</td>
+							<td>$15.42</td>
+							<td><button class="btn btn-info">Select</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

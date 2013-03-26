@@ -1,0 +1,87 @@
+/* ==========================================================================
+   IMPORT MIXINS ELEMENTS PRESETS
+   ========================================================================== */
+@import url("bootstrap.less");
+
+
+/* ==========================================================================
+   CONTAINERS
+   ========================================================================== */
+.container{
+	padding: 16px;
+}
+
+/* ==========================================================================
+   HEADER.html
+   ========================================================================== */
+/* We start with header.navbar as a more specific selector (node.class), this is so that we can override any bootstrap styles, see CSS hierarchy/specificity */
+header.navbar{
+	background: #19c1ff; /* Light blue background for the header, so it stretched across the page. This is outside of the container */
+	border-bottom: 1px solid #8eddfa; /* Lighter blue 1px border to provide an accent or highlight to soften the transition between blue and white*/
+	.navbar-inner{
+		/* Here we're just overriding the bootstrap defaults to remove the default styles, if you like it, you can keep it instead */
+		background: transparent;
+		border: none;
+		box-shadow: none;
+		filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); /* This is just for IE, bootstrap normally makes IE create a gradient, here we don't want that! */
+		.logo{
+			margin: 20px; /* The logo may be largest item in the header, we can give a margin to push out the navbar-inner */
+			float: left; /* Float simply pulls the item to left */
+			display: block; /* a elements are usually inline, making them block level makes them automatically stretch to the width of the parent container, this centers them if they didn't have a float:left. We use responsive styles to override the float:left to float:none, resulting an a element taking up the whole width of the parent container allowing the img tag underneath to center properly and also scale down! */
+			img{
+				margin: 0 auto; /* This is used so that the img element is centered inside the a.logo. */
+				display: block; /* img elements are usually inline, so they won't respect margin: 0 auto, unless they have a specified display:block, making it an automatically block level. img nodes naturally have width, so they don't require further specification */
+			}
+		}
+		.btn-navbar{
+			margin-top: 30px; /* I like to center the navbar from the top to bottom, you are hardcoding this, but it's fine because the header hardly ever changes */
+			background: #053344; /* This demonstrates a hover effect, we begin with a colour */
+			&:hover{
+				background: green; /* And we change the colour! Notice that hovering is via &:rule method. This is due to LESS. The equivalent in CSS would be .btn-navbar:hover{} */
+			}
+		}
+		.nav-collapse{
+			clear: both; /* This is here because clear:both clears the logo that is floated to the left, if this was left out, the logo could not be clicked on because this would be on top of the logo's container. This is a bit hacky, but it's the result of us changing bootstrap's default style to fit our style. */
+			.nav{
+				font-family: arial;
+				font-size: 18px;
+				float: none; /* You can float this to the left, or right. But by doing so, you'll affect other elements, because floats don't get recognised in the normal stacking order. If you want other elements to recognise floats, you either have to use overflow to contain, clear to stack or float to get up close to it! */
+				clear: left; /* By clearing left, I actually make nav hate floats, so it will no co-exist with it on the same level, and hence stack undeneath the floated logo above. Try removing this to see what happens! */
+				li{
+					margin-left: 5px; /* Margins to separate the list items from each other, it can be granular like this if you want */
+					margin-right: 5px;
+					a{
+						color: #6c6c6c;
+						padding: 10px 5px; /* We add padding to the a tags, to stretch out the clickable area. This is to make it easier for users to click on the link without needing to be accurate. This is a 2 property style: Top/Bottom then Left/Right */
+						text-shadow: 0 1px 1px #FFFFFF; /* Bootstrap automaticallya adds in a text-shadow, but we're overriding it with our own, this makes the text seem inset into the background. You need to iterate through the options to get the correct mix of shadows and colours */
+						&:hover{
+							text-decoration: underline;
+							color: #495d2b;
+						}
+					}
+				}
+				li.active{
+					a{
+						background: #b1cc8a; /* The active class is one provided by bootstrap, here we're just overriding the colour of the background based on whichever link is the active one! */
+					}
+				}
+				li.dropdown.open > a{
+					/* The aligator sign indicates I want only the direct child elements of li.dropdown.open, the changing of CSS classes means, I want a li with both dropdown and open as classes. Bootstrap automatically adds in dropdown and open to those elements, when you click on them. */
+					/* The below border rules could be created using a mixin or clearless (less mixin library) */
+					-webkit-border-radius: 5px;
+					-moz-border-radius: 5px;
+					border-radius: 5px;
+				}
+			}
+			.navbar-search{
+				margin-top: -62px; /* Since we put .navbar-search inside the collapsible nav, its container has been pushed down by the logo. Therefore in order to make it positioned above, we need to give it a negative margin so that it goes out of its containing box and moves to the top, this becomes a problem when the navigation is collaped, which we solve using responsive styles */
+			}
+		}
+	}
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@import url("bootstrap-responsive.less");
+@import url("responsive_header.less");
