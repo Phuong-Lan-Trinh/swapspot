@@ -3,11 +3,10 @@
 
 use Polycademy\Validation\Validator;
 
-class User_schedule_model extends CI_Model{
+class Validation_insertion_schedule_model extends CI_Model{
 
     protected $validator;
-    protected $errors;
-
+    
     public function __construct(){
 
         parent::__construct();
@@ -15,52 +14,52 @@ class User_schedule_model extends CI_Model{
 
     }
 
-    public function create($data){
-
-        $this->validator->setup_rules(array(
-            'user_id'  => array(
-                'set_label:user_id',
+    public function create(){
+        $this->input->json(false,true);
+        $rules = array(
+            'address'  => array(
+                'set_label:Address',
                 'NotEmpty',
-                'MinLength:1'.
-                'MaxLength:10000',
+                'MinLength:5',
+                'MaxLength:255'
                 ),
             'location' => array(
                 'set_label:location',
                 'NotEmpty',
-                'AlphaNumericSpace',
                 'MinLength:5',
                 'MaxLength:200',
             ),
             'timestart' => array(
-                'set_label:start time',
+                'set_label:Starttime',
                 'NotEmpty',
                 'AlphaNumericSpace',
                 'MinLength:5',
                 'MaxLength:100',
             ),
             'timelength' => array(
-                'set_label:time length',
+                'set_label:Timelength',
                 'NotEmpty',
                 'AlphaNumericSpace',
                 'MinLength:5',
                 'MaxLength:100',
             ),
             'longitude' => array(
-                'set_label:time length',
+                'set_label:Longitude',
                 'NotEmpty',
                 'AlphaNumericSpace',
                 'MinLength:5',
                 'MaxLength:100',
             ),
             'latitude' => array(
-                'set_label:time length',
+                'set_label:Latitude',
                 'NotEmpty',
                 'AlphaNumericSpace',
                 'MinLength:5',
                 'MaxLength:100',
             ),
-        ),
-        ));
+        );
+
+        $this->validator->setup_rules($rules);
 
         if(!$this->validator->is_valid($data)){
 

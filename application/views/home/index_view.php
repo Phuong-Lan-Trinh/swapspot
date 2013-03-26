@@ -40,7 +40,7 @@
                         <label class="for_location"> 
                             <p>I am parking at</p>
                         </label>
-                            <input class="Location span6" type="text" placeholder="Car park location">
+                            <input name="location" class="Location span6" type="text" placeholder="Car park location">
                     </div>
                     
                     
