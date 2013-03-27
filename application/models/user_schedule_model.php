@@ -117,7 +117,7 @@ class User_schedule_model extends CI_Model{
     
     public function update($id, $data){
 
-        $this->authenticated();
+        $this->ion_auth->user;
 
         $this->validator->setup_rules(array(
         'address'  => array(

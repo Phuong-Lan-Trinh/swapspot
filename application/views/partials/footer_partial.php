@@ -1,5 +1,13 @@
        <!-- Client Side Templates -->
        <? Template::partial('home/home_index') ?>
+       <? Template::partial('dummy/dummy_index') ?>
+        <!-- Pass in PHP variables to Javascript -->
+        <script>
+            var serverVars = {
+                baseUrl: '<?= base_url() ?>',
+                csrfCookieName: '<?= $this->config->item('cookie_prefix') . $this->config->item('csrf_cookie_name') ?>'
+            };
+        </script>
        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
 
@@ -17,5 +25,9 @@
         <script src="js/app.js"></script>
         <!-- Page Level Controllers -->
         <script src="js/controllers/Home.Controllers.js"></script>
+        <script src="js/controllers/Dummy.Controllers.js"></script>
+        <!-- Vendor -->
+        <script src="js/vendor/angular-cookies.min.js"></script>
+        <script src="js/vendor/angular-resource.min.js"></script>
     </body>
 </html>
