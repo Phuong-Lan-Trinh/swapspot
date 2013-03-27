@@ -5,7 +5,8 @@ class Schedules extends CI_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Position_model');
-		$this->load->model('validation_insertion_schedule_model');
+		$this->load->model('User_schedule_model');
+		$this->load->library('ion_auth');
 	}
 
 	//only accessible by admin
@@ -34,29 +35,35 @@ class Schedules extends CI_Controller{
 
 	//publicly accessible!
 	public function create(){
+		//$this->authenticated();
+		$user = $this->ion_auth->user()->row();
+		$user_id = $user->id;
 
-		$data = $this->input->json(false, true); // this does not access the input at all ~"~
+		$data = $this->input->json(false, true); 
 
 		$location = $data['location'];
 
 		$location = $this->Position_model->get_location($location);
 		var_dump($location);
 
-		// YAY WE JHAVE THE LCOATIOJN!!!
-		// if ($this->authenticated()){
-		// 	$address = $this->location->position['address'];
-		// 	$longitude = $this->location->position['longitude'];
-		// 	$latitude = $this->location->position['latitude'];
-		// 	$timestart = $data['timestart'];
-		// 	$timelength = $data['timelength'];
-		// 	$location = $data['location'];
-		// 	$this->Validation_insertion_schedule_model->create();
-		// }
+		// YAY WE JHAVE THE LOCATIOJN!!!
+		$data = $this->input->json(false,true);
+		$data['user_id'] = $user_id;
+		$location = $data['location'];
+		$position = $this->Position_model->get_location($location);
+		$data += $position;
+		var_dump($data);
+
+		//NOW WE NEED TO INSERT ALL THESE INPUT DATA INTO THE TABLE
+		$this->User_schedule_model->create($data);
+
+		
 		//WOOOHOO!
 	}
 
 	//only accessible by admin
 	public function delete($id){
+		$this->User_schedule_model->delete($id);
 
 	}
 

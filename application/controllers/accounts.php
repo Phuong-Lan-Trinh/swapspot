@@ -71,7 +71,7 @@ class Accounts extends CI_Controller{
 
 				if($id = $this->ion_auth->register($data['username'], $data['password'], $data['email'])){
 					$code = 'success';
-					$content = 'you are logged in';
+					$content = $id;
 					$this->output->set_status_header(201);					
 				}else{
 					$code = 'system_error';

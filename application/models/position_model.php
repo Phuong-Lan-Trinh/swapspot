@@ -16,24 +16,33 @@ class Position_model extends CI_Model{
 		//decode json file to get the longitude and latitude
 
 		$json = json_decode($response->getBody(), true);
-		var_dump($json);
+		// var_dump($json);
 
 		if($json["results"][0]["formatted_address"] AND $json["results"][0]["geometry"]["viewport"]["northeast"]){
 				$position["address"] = $json["results"][0]["formatted_address"];
 				$position["latitude"] = $json["results"][0]["geometry"]["viewport"]["northeast"]["lat"];
 				$position["longitude"] = $json["results"][0]["geometry"]["viewport"]["northeast"]["lng"];
 
-				return $position;
-				
 				$code = 'success';
 				$content = 'LOCATION FOUND ... I AM AWESOME';
 				$this->output->set_status_header(201);
+				return $position;
+				
+				
 			}else{
 				$code = 'error';
 				$content = 'OOPPS LOCATION NOT FOUND';
 				$this->output->set_status_header(400);
 
 			}
+
+			$output = array(
+			'content' => $content,
+			'code' => $code,
+			'redirect' => '',
+			);
+
+		Template::compose(false, $output, 'json');
 		
 		}
 }

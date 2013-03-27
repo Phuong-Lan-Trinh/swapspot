@@ -3,7 +3,7 @@
 
 use Polycademy\Validation\Validator;
 
-class Validation_insertion_schedule_model extends CI_Model{
+class User_schedule_model extends CI_Model{
 
     protected $validator;
     
@@ -11,10 +11,11 @@ class Validation_insertion_schedule_model extends CI_Model{
 
         parent::__construct();
         $this->validator = new Validator;
+        $this->load->database();
 
     }
 
-    public function create(){
+    public function create($data){
         $this->input->json(false,true);
         $rules = array(
             'address'  => array(
@@ -27,46 +28,44 @@ class Validation_insertion_schedule_model extends CI_Model{
                 'set_label:location',
                 'NotEmpty',
                 'MinLength:5',
-                'MaxLength:200',
+                'MaxLength:255',
             ),
             'timestart' => array(
                 'set_label:Starttime',
                 'NotEmpty',
-                'AlphaNumericSpace',
-                'MinLength:5',
+                'MinLength:1',
                 'MaxLength:100',
             ),
             'timelength' => array(
                 'set_label:Timelength',
                 'NotEmpty',
                 'AlphaNumericSpace',
-                'MinLength:5',
+                'MinLength:1',
                 'MaxLength:100',
             ),
             'longitude' => array(
                 'set_label:Longitude',
                 'NotEmpty',
-                'AlphaNumericSpace',
-                'MinLength:5',
+                'MinLength:1',
                 'MaxLength:100',
             ),
             'latitude' => array(
                 'set_label:Latitude',
                 'NotEmpty',
-                'AlphaNumericSpace',
-                'MinLength:5',
+                'MinLength:1',
                 'MaxLength:100',
             ),
         );
 
         $this->validator->setup_rules($rules);
 
+
         if(!$this->validator->is_valid($data)){
 
             //returns array of key for data and value
-            $this->errors = $this->validator->get_errors();
-            return false;
-
+            $code = 'validation_error';
+            $content = $this->validator->get_errors();
+            $this->output->set_status_header(400);
         }
 
         $query = $this->db->insert('schedules', $data);
@@ -121,7 +120,13 @@ class Validation_insertion_schedule_model extends CI_Model{
         $this->authenticated();
 
         $this->validator->setup_rules(array(
-            'location' => array(
+        'address'  => array(
+            'set_label:Address',
+            'NotEmpty',
+            'MinLength:5',
+            'MaxLength:255'
+            ),
+        'location' => array(
             'set_label:location',
             'NotEmpty',
             'AlphaNumericSpace',

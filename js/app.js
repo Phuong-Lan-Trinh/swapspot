@@ -13,7 +13,10 @@ app.config(
 		'$routeProvider',
 		'$locationProvider',
 		function($routeProvider,$locationProvider){
-		//time for routing
+		
+			//HTML5 Mode URLs
+			// $location Provider.html5Mode(true).hashPrefix('!');
+			//time for routing
 			$routeProvider
 				.when(
 					'/',
