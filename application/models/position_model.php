@@ -4,6 +4,8 @@ use Guzzle\Http\Client;
 
 class Position_model extends CI_Model{
 
+	protected $errors;
+
 	public function get_location($location){
 
 		// Create a client and provide a base URL
@@ -16,33 +18,46 @@ class Position_model extends CI_Model{
 		//decode json file to get the longitude and latitude
 
 		$json = json_decode($response->getBody(), true);
-		// var_dump($json);
 
 		if($json["results"][0]["formatted_address"] AND $json["results"][0]["geometry"]["viewport"]["northeast"]){
-				$position["address"] = $json["results"][0]["formatted_address"];
-				$position["latitude"] = $json["results"][0]["geometry"]["viewport"]["northeast"]["lat"];
-				$position["longitude"] = $json["results"][0]["geometry"]["viewport"]["northeast"]["lng"];
+			
+			$position["address"] = $json["results"][0]["formatted_address"];
+			$position["latitude"] = $json["results"][0]["geometry"]["viewport"]["northeast"]["lat"];
+			$position["longitude"] = $json["results"][0]["geometry"]["viewport"]["northeast"]["lng"];
 
-				$code = 'success';
-				$content = 'LOCATION FOUND ... I AM AWESOME';
-				$this->output->set_status_header(201);
-				return $position;
+			// $code = 'success';
+			// $content = 'LOCATION FOUND ... I AM AWESOME';
+			// $this->output->set_status_header(201);
+			return $position;
 				
 				
-			}else{
-				$code = 'error';
-				$content = 'OOPPS LOCATION NOT FOUND';
-				$this->output->set_status_header(400);
+		}else{
 
-			}
+			$this->errors = array(
+				'error' => 'Could not get data from Google'
+				);
 
-			$output = array(
-			'content' => $content,
-			'code' => $code,
-			'redirect' => '',
-			);
+			return false;
 
-		Template::compose(false, $output, 'json');
-		
+				// $code = 'error';
+				// $content = 'OOPPS LOCATION NOT FOUND';
+				// $this->output->set_status_header(400);
+
 		}
+
+			// $output = array(
+			// 'content' => $content,
+			// 'code' => $code,
+			// 'redirect' => '',
+			// );
+
+		// Template::compose(false, $output, 'json');
+		
+	}
+
+    public function get_errors(){
+        
+        return $this->errors;
+        
+    }		
 }

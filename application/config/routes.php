@@ -75,11 +75,12 @@ Pigeon::map(function($r){
 		//TODO LIST
 
 		//the user schedule resource
-		$r->get('user_schedule', 'user_schedule#index');
-		$r->put('user_schedule', 'user_schedule#update');
+		// $r->get('user_schedule', 'user_schedule#index');
+		// $r->put('user_schedule', 'user_schedule#update');
+		$r->resources('home');
 
 		//management of all schedules
-		$r->resources('schedules');
+		$r->resources('userschedule');
 
 		$r->resources('sessions');
 

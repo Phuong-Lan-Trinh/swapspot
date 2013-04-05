@@ -153,9 +153,9 @@ class Auth extends CI_Controller {
 				'type' => 'password',
 				'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
 			);
-			$this->data['user_id'] = array(
-				'name'  => 'user_id',
-				'id'    => 'user_id',
+			$this->data['userId'] = array(
+				'name'  => 'userId',
+				'id'    => 'userId',
 				'type'  => 'hidden',
 				'value' => $user->id,
 			);
@@ -266,9 +266,9 @@ class Auth extends CI_Controller {
 					'type' => 'password',
 					'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
 				);
-				$this->data['user_id'] = array(
-					'name'  => 'user_id',
-					'id'    => 'user_id',
+				$this->data['userId'] = array(
+					'name'  => 'userId',
+					'id'    => 'userId',
 					'type'  => 'hidden',
 					'value' => $user->id,
 				);
@@ -281,7 +281,7 @@ class Auth extends CI_Controller {
 			else
 			{
 				// do we have a valid request?
-				if ($this->_valid_csrf_nonce() === FALSE || $user->id != $this->input->post('user_id'))
+				if ($this->_valid_csrf_nonce() === FALSE || $user->id != $this->input->post('userId'))
 				{
 
 					//something fishy might be up
@@ -397,8 +397,8 @@ class Auth extends CI_Controller {
 		}
 
 		//validate form input
-		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_fname_label'), 'required|xss_clean');
+		$this->form_validation->set_rules('firstName', $this->lang->line('create_user_validation_fname_label'), 'required|xss_clean');
+		$this->form_validation->set_rules('lastName', $this->lang->line('create_user_validation_fname_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email');
 		$this->form_validation->set_rules('phone1', $this->lang->line('create_user_validation_phone1_label'), 'required|xss_clean|min_length[3]|max_length[3]');
 		$this->form_validation->set_rules('phone2', $this->lang->line('create_user_validation_phone2_label'), 'required|xss_clean|min_length[3]|max_length[3]');
@@ -409,13 +409,13 @@ class Auth extends CI_Controller {
 
 		if ($this->form_validation->run() == true)
 		{
-			$username = strtolower($this->input->post('first_name')) . ' ' . strtolower($this->input->post('last_name'));
+			$username = strtolower($this->input->post('firstName')) . ' ' . strtolower($this->input->post('lastName'));
 			$email    = $this->input->post('email');
 			$password = $this->input->post('password');
 
 			$additional_data = array(
-				'first_name' => $this->input->post('first_name'),
-				'last_name'  => $this->input->post('last_name'),
+				'firstName' => $this->input->post('firstName'),
+				'lastName'  => $this->input->post('lastName'),
 				'company'    => $this->input->post('company'),
 				'phone'      => $this->input->post('phone1') . '-' . $this->input->post('phone2') . '-' . $this->input->post('phone3'),
 			);
@@ -433,17 +433,17 @@ class Auth extends CI_Controller {
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-			$this->data['first_name'] = array(
-				'name'  => 'first_name',
-				'id'    => 'first_name',
+			$this->data['firstName'] = array(
+				'name'  => 'firstName',
+				'id'    => 'firstName',
 				'type'  => 'text',
-				'value' => $this->form_validation->set_value('first_name'),
+				'value' => $this->form_validation->set_value('firstName'),
 			);
-			$this->data['last_name'] = array(
-				'name'  => 'last_name',
-				'id'    => 'last_name',
+			$this->data['lastName'] = array(
+				'name'  => 'lastName',
+				'id'    => 'lastName',
 				'type'  => 'text',
-				'value' => $this->form_validation->set_value('last_name'),
+				'value' => $this->form_validation->set_value('lastName'),
 			);
 			$this->data['email'] = array(
 				'name'  => 'email',
@@ -513,8 +513,8 @@ class Auth extends CI_Controller {
 		}
 
 		//validate form input
-		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required|xss_clean');
+		$this->form_validation->set_rules('firstName', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');
+		$this->form_validation->set_rules('lastName', $this->lang->line('edit_user_validation_lname_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('phone1', $this->lang->line('edit_user_validation_phone1_label'), 'required|xss_clean|min_length[3]|max_length[3]');
 		$this->form_validation->set_rules('phone2', $this->lang->line('edit_user_validation_phone2_label'), 'required|xss_clean|min_length[3]|max_length[3]');
 		$this->form_validation->set_rules('phone3', $this->lang->line('edit_user_validation_phone3_label'), 'required|xss_clean|min_length[4]|max_length[4]');
@@ -530,8 +530,8 @@ class Auth extends CI_Controller {
 			}
 
 			$data = array(
-				'first_name' => $this->input->post('first_name'),
-				'last_name'  => $this->input->post('last_name'),
+				'firstName' => $this->input->post('firstName'),
+				'lastName'  => $this->input->post('lastName'),
 				'company'    => $this->input->post('company'),
 				'phone'      => $this->input->post('phone1') . '-' . $this->input->post('phone2') . '-' . $this->input->post('phone3'),
 			);
@@ -580,17 +580,17 @@ class Auth extends CI_Controller {
 		$this->data['groups'] = $groups;
 		$this->data['currentGroups'] = $currentGroups;
 
-		$this->data['first_name'] = array(
-			'name'  => 'first_name',
-			'id'    => 'first_name',
+		$this->data['firstName'] = array(
+			'name'  => 'firstName',
+			'id'    => 'firstName',
 			'type'  => 'text',
-			'value' => $this->form_validation->set_value('first_name', $user->first_name),
+			'value' => $this->form_validation->set_value('firstName', $user->first_name),
 		);
-		$this->data['last_name'] = array(
-			'name'  => 'last_name',
-			'id'    => 'last_name',
+		$this->data['lastName'] = array(
+			'name'  => 'lastName',
+			'id'    => 'lastName',
 			'type'  => 'text',
-			'value' => $this->form_validation->set_value('last_name', $user->last_name),
+			'value' => $this->form_validation->set_value('lastName', $user->last_name),
 		);
 		$this->data['company'] = array(
 			'name'  => 'company',

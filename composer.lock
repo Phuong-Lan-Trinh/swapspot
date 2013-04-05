@@ -664,16 +664,16 @@
         },
         {
             "name": "cboden/Ratchet",
-            "version": "v0.2.4",
+            "version": "v0.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cboden/Ratchet.git",
-                "reference": "v0.2.4"
+                "reference": "v0.2.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cboden/Ratchet/zipball/v0.2.4",
-                "reference": "v0.2.4",
+                "url": "https://api.github.com/repos/cboden/Ratchet/zipball/v0.2.5",
+                "reference": "v0.2.5",
                 "shasum": ""
             },
             "require": {
@@ -709,7 +709,7 @@
                 "server",
                 "sockets"
             ],
-            "time": "2013-03-09 14:06:25"
+            "time": "2013-04-01 23:38:50"
         },
         {
             "name": "evenement/evenement",
@@ -1562,16 +1562,16 @@
         },
         {
             "name": "polycademy/citemplating",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Polycademy/CiTemplating.git",
-                "reference": "1.0.5"
+                "reference": "1.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Polycademy/CiTemplating/zipball/1.0.5",
-                "reference": "1.0.5",
+                "url": "https://api.github.com/repos/Polycademy/CiTemplating/zipball/1.0.6",
+                "reference": "1.0.6",
                 "shasum": ""
             },
             "type": "library",
@@ -1589,7 +1589,7 @@
                 "codeigniter",
                 "templating"
             ],
-            "time": "2013-03-12 05:22:57"
+            "time": "2013-03-28 03:44:23"
         },
         {
             "name": "polycademy/validation",
@@ -1926,17 +1926,17 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.1.8",
+            "version": "v2.1.9",
             "target-dir": "Symfony/Component/CssSelector",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "v2.1.8"
+                "reference": "v2.1.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/v2.1.8",
-                "reference": "v2.1.8",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/v2.1.9",
+                "reference": "v2.1.9",
                 "shasum": ""
             },
             "require": {

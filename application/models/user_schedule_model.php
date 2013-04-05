@@ -6,6 +6,7 @@ use Polycademy\Validation\Validator;
 class User_schedule_model extends CI_Model{
 
     protected $validator;
+    protected $errors;
     
     public function __construct(){
 
@@ -16,7 +17,7 @@ class User_schedule_model extends CI_Model{
     }
 
     public function create($data){
-        $this->input->json(false,true);
+
         $rules = array(
             'address'  => array(
                 'set_label:Address',
@@ -63,9 +64,11 @@ class User_schedule_model extends CI_Model{
         if(!$this->validator->is_valid($data)){
 
             //returns array of key for data and value
-            $code = 'validation_error';
-            $content = $this->validator->get_errors();
-            $this->output->set_status_header(400);
+            $this->errors = array(
+                'validation_error' => $this->validator->get_errors();
+                );
+            return false;
+
         }
 
         $query = $this->db->insert('schedules', $data);
@@ -79,7 +82,7 @@ class User_schedule_model extends CI_Model{
             log_message('error', 'Problem inserting to schedules table: ' . $msg . ' (' . $num . '), using this query: "' . $last_query . '"');
 
             $this->errors = array(
-            'database'  => 'Problem inserting data to schedules table.',
+                'system_error'  => 'Problem inserting data to schedules table.',
             );
 
             return false;
@@ -92,24 +95,65 @@ class User_schedule_model extends CI_Model{
 
     public function read($id){
 
-        $this->authenticated();
-
         $query = $this->db->get_where('schedules', array('id' => $id));
 
         if($query->num_rows() > 0){
             $row = $query->row();
             $data = array(
-                'id'    => $id,
+                'id'        => $id,
+                'userId'    => $row->userId,
                 'location'  => $row->location,
+                'address'   => $row->address,
+                'latitude'  => $row->latitude,
+                'longitude' => $row->longitude,
                 'timestart' => $row->timestart,
                 'timelength'=> $row->timelength,
-                );
+            );
             return $data;
         }else{
-        $this->errors = array(
-        'database'  => 'Could not find specified schedules.',
-        );
-        return false;
+            $this->errors = array(
+            'error'  => 'Could not find specified schedules.',
+            );
+            return false;
+        }
+
+    }
+
+    public function read_all($limit = 10, $offset = 0){
+
+        $this->db->select('*');
+        $this->db->limit($limit, $offset);
+        $query = $this->db->get('schedules')
+        // $sql = 'SELECT * FROM schedules LIMIT ?, ?';
+        // $query = $this->db->query($sql, array(10, 0));
+
+        if($query->num_rows > 0){
+
+            foreach($query->result() as $row){
+
+                $data[] = array(
+                    'id'        => $row->id,
+                    'userId'    => $row->userId,
+                    'location'  => $row->location,
+                    'address'   => $row->address,
+                    'latitude'  => $row->latitude,
+                    'longitude' => $row->longitude,
+                    'timestart' => $row->timestart,
+                    'timelength'=> $row->timelength,
+                );
+
+            }
+
+            return $data;
+
+        }else{
+
+            $this->errors = array(
+                'error' => 'No schedules found!',
+            );
+
+            return false;
+
         }
 
     }
@@ -117,56 +161,56 @@ class User_schedule_model extends CI_Model{
     
     public function update($id, $data){
 
-        $this->ion_auth->user;
-
         $this->validator->setup_rules(array(
-        'address'  => array(
-            'set_label:Address',
-            'NotEmpty',
-            'MinLength:5',
-            'MaxLength:255'
+            'address'  => array(
+                'set_label:Address',
+                'NotEmpty',
+                'MinLength:5',
+                'MaxLength:255'
+                ),
+            'location' => array(
+                'set_label:location',
+                'NotEmpty',
+                'AlphaNumericSpace',
+                'MinLength:5',
+                'MaxLength:200',
             ),
-        'location' => array(
-            'set_label:location',
-            'NotEmpty',
-            'AlphaNumericSpace',
-            'MinLength:5',
-            'MaxLength:200',
-        ),
-        'timestart' => array(
-            'set_label:start time',
-            'NotEmpty',
-            'AlphaNumericSpace',
-            'MinLength:5',
-            'MaxLength:100',
-        ),
-        'timelength' => array(
-            'set_label:time length',
-            'NotEmpty',
-            'AlphaNumericSpace',
-            'MinLength:5',
-            'MaxLength:100',
-        ),
-        'longitude' => array(
-            'set_label:time length',
-            'NotEmpty',
-            'AlphaNumericSpace',
-            'MinLength:5',
-            'MaxLength:100',
-        ),
-        'latitude' => array(
-            'set_label:time length',
-            'NotEmpty',
-            'AlphaNumericSpace',
-            'MinLength:5',
-            'MaxLength:100',
-        ),
+            'timestart' => array(
+                'set_label:start time',
+                'NotEmpty',
+                'AlphaNumericSpace',
+                'MinLength:5',
+                'MaxLength:100',
+            ),
+            'timelength' => array(
+                'set_label:time length',
+                'NotEmpty',
+                'AlphaNumericSpace',
+                'MinLength:5',
+                'MaxLength:100',
+            ),
+            'longitude' => array(
+                'set_label:time length',
+                'NotEmpty',
+                'AlphaNumericSpace',
+                'MinLength:5',
+                'MaxLength:100',
+            ),
+            'latitude' => array(
+                'set_label:time length',
+                'NotEmpty',
+                'AlphaNumericSpace',
+                'MinLength:5',
+                'MaxLength:100',
+            ),    
         ));
 
         if(!$this->validator->is_valid($data)){
 
-        $this->errors = $this->validator->get_errors();
-        return false;
+            $this->errors = array(
+                'validation_error' => $this->validator->get_errors(),
+            );
+            return false;
 
         }
 
@@ -181,16 +225,16 @@ class User_schedule_model extends CI_Model{
         }else{
 
             $this->errors = array(
-            'database'  => 'Nothing to update.',
-        );
-                    return false;
+            'error'  => 'Nothing to update.',
+            );
+            return false;
 
         }
 
     }
 
     public function delete($id){
-        $this->authenticated();
+
         $this->db->where('id', $id);
         $this->db->delete('schedules');
 
@@ -201,17 +245,19 @@ class User_schedule_model extends CI_Model{
         }else{
 
             $this->errors = array(
-            'database'  => 'Nothing to delete.',
+            'error'  => 'Nothing to delete.',
         );
 
-                    return false;
+            return false;
 
         }
 
     }
 
     public function get_errors(){
+        
         return $this->errors;
+
     }
 
 }

@@ -42,8 +42,8 @@ $config['tables']['login_attempts']  = 'login_attempts';
  | Joins from users.id
  | Joins from groups.id
  */
-$config['join']['users']  = 'user_id';
-$config['join']['groups'] = 'group_id';
+$config['join']['users']  = 'userId';
+$config['join']['groups'] = 'groupId';
 
 /*
  | -------------------------------------------------------------------------
@@ -81,8 +81,8 @@ $config['max_rounds']     = 9;
  | The controller should check this function and act
  | appropriately. If this variable set to 0, there is no maximum.
  */
-$config['site_title']                 = "SWAPSPOT";       // Site Title, example.com
-$config['admin_email']                = "phuonglan.trinh91@gmail.com"; // Admin Email, admin@example.com
+$config['site_title']                 = "Polycademy2";       // Site Title, example.com
+$config['admin_email']                = "roger.qiu@polycademy.com"; // Admin Email, admin@example.com
 $config['default_group']              = 'members';           // Default group, use name
 $config['admin_group']                = 'admin';             // Default administrators group, use name
 $config['identity']                   = 'email';             // A database column which is used to login with

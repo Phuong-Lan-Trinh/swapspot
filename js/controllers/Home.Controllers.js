@@ -11,5 +11,7 @@ angular.module('Home.Controllers', ['Home.Controllers.Index']);
 			'$scope',
 			function($scope){
 			$scope.data = 'HELLO!';
-			}
+			},
+			
+			
 	]);
