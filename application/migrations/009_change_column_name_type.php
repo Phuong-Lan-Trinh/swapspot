@@ -6,9 +6,11 @@ class Migration_change_column_name_type extends CI_Migration{
             'timelength' => array(
                 'name' => 'timeEnd',
                 'type' => 'TIMESTAMP'
+                'default'	=> '0000-00-00 00:00:00',
             ),
             'timestart' => array(
-            	'type' => 'TIMESTAMP'
+            	'type' => 'TIMESTAMP',
+            	'default'	=> '0000-00-00 00:00:00',
             )
 
 		);

@@ -17,7 +17,7 @@ class Matching_model extends CI_Model{
         $rules = array(
             'id'    => array(
                 'set_label:Schedule ID',
-                'Integer',
+                'Number'
             )
         );
 
@@ -33,7 +33,7 @@ class Matching_model extends CI_Model{
 
             $result = $query->row();
 
-            if($result['userId'] == $user_id){
+            if($result->userId == $user_id){
                 return $result;
             }else{
                 $this->errors = array(
@@ -55,35 +55,66 @@ class Matching_model extends CI_Model{
 
     }
 
-    public function read_all($limit,$offset){
+    //THIS FUNCTION IS TO READ ALL THE MATCHED SCHEDULES
+    public function read_all($own_schedule, $kmrange, $limit,$offset){
+    
+        $latitude = $own_schedule->latitude;
+        $longitude = $own_schedule->longitude;
+        $table_name = 'schedules';
+        //this is a timestamp calculation
+
+        //timestamp again!
+        $timestart = $own_schedule->timestart;
+        $timeend = $own_schedule->timeEnd;
+
+        //sql query to find all position matches, based on km range, will show all the results plus a distance column that will be ordered from closest to furtherest away
+        $sql = 'SELECT *, 
+                ( 
+                    6371 * 
+                    acos( 
+                        cos( radians(?) ) * 
+                        cos( radians( latitude ) ) * 
+                        cos( radians( longitude ) - radians(?) ) + 
+                        sin( radians(?) ) * sin( radians( latitude ) ) 
+                    ) 
+                ) AS distance 
+                FROM schedules 
+                WHERE (timestart <= ?) AND (timeEnd >= ?) 
+                HAVING distance < ? 
+                ORDER BY distance 
+                LIMIT ? , ?'; //LIMIT has to use INTEGERS!
+
+        $query = $this->db->query($sql, array($latitude, $longitude, $latitude, $timeend, $timestart, $kmrange, (integer) $offset, (integer) $limit));
+
         if($query){
 
-                    foreach($query->result() as $row){
+            foreach($query->result() as $row){
 
-                        $data[] = array(
-                            'id'        => $row->id,
-                            'userId'    => $row->userId,
-                            'location'  => $row->location,
-                            'address'   => $row->address,
-                            'latitude'  => $row->latitude,
-                            'longitude' => $row->longitude,
-                            'timestart' => $row->timestart,
-                            'timeEnd'   => $row->timeEnd
-                        );
+                $data[] = array(
+                    'id'        => $row->id,
+                    'userId'    => $row->userId,
+                    'email'     => $this->ion_auth->user()->row()->email,
+                    'address'   => $row->address,
+                    'latitude'  => $row->latitude,
+                    'longitude' => $row->longitude,
+                    'timestart' => $row->timestart,
+                    'timeEnd'   => $row->timeEnd
+                );
 
-                    }
+            }
 
-                    return $data;
+            return $data;
 
-                }else{
+        }else{
 
-                    $this->errors = array(
-                        'error' => 'No schedules found!',
-                    );
+            $this->errors = array(
+                'error' => 'No schedules found!',
+            );
 
-                    return false;
+            return false;
 
-                }
+        }
+
     }
 
 

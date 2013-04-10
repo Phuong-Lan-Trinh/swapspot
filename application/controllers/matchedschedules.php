@@ -47,24 +47,42 @@ class Matchedschedules extends CI_Controller{
 
 			if($own_schedule OR $this->ion_auth->is_admin()){
 
-				$latitude = $own_schedule['latitude'];
-				$longitude = $own_schedule['longitude'];
-				$table_name = 'schedules';
-				//this is a timestamp calculation
+				$query = $this->Matching_model->read_all($own_schedule, $kmrange, $limit, $offset);
 				
-				//timestamp again!
-				$timestart = $own_schedule['timestart'];
-				$timeend = $own_schedule['timeEnd'];
-				//sql query to find all position matches, based on km range, will show all the results plus a distance column that will be ordered from closest to furtherest away
-				$sql = 'SELECT *, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance FROM ? WHERE (timestart <= ?) AND (timeEnd >= ?) HAVING distance < ? ORDER BY distance LIMIT ? , ?';
-				$query = $this->db->query($sql, array($latitude, $longitude, $latitude, $table_name, $timeend, $timestart, $kmrange, $offset, $limit));
+				if($query){
+					
+					$output = array(
+						'content'	=> $query,
+						'code'		=> 'success',
+					);
 
+				}else{
 
+					$this->output->set_status_header(404);
+					$output = array(
+						'content'	=> current($this->Matching_model->get_errors()),
+						'code'		=> key($this->Matching_mode->get_errors()),
+					);
 
+				}
+
+			}else{
+				
+				$this->output->set_status_header(403);
+
+				$output = array(
+					'content'	=> current($this->Matching_model->get_errors()),
+					'code'		=> key($this->Matching_model->get_errors()),
+				);
 			}
 
 		}else{
 			//not logged in
+			$this->output->set_status_header(403);
+			$output = array(
+				'content'	=> 'You need to be logged in to view your schedules.',
+				'code'		=> 'error',
+			);
 		}
 
 		Template::compose(false,  $output, 'json');
