@@ -81,6 +81,7 @@ Pigeon::map(function($r){
 
 		//management of all schedules
 		$r->resources('userschedule');
+		$r->resources('matchedschedules');
 
 		$r->resources('sessions');
 

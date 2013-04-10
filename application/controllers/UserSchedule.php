@@ -2,20 +2,20 @@
 
 class UserSchedule extends CI_Controller{
 
-	protected function authenticated(){}
+	private function authenticated(){}
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('Position_model');
-		$this->load->model('User_schedule_model');
-		$this->load->library('ion_auth');
-		$this->load->model('Matching_model');
-	}
+			$this->load->model('Position_model');
+			$this->load->model('User_schedule_model');
+			$this->load->library('ion_auth');
+			$this->load->model('Matching_model');
+		}
 
 	//only accessible by admin
 	public function index(){
 		//NEEDS AUTHENTICATION
-		// $this->authenticated(),
+		// $this->authenticated();
 		// $limit = $this->input->get('limit', true);
 		// $offset = $this->input->get('offset', true);
 
@@ -38,10 +38,10 @@ class UserSchedule extends CI_Controller{
 
 	//publicly accessible!
 	public function create(){
-		
+
 		$this->authenticated();
 
-		$data = $this->input->json(false, true);		
+		$data = $this->input->json(false, true);	
 
 		$data['userId'] = $this->ion_auth->user()->row()->id;
 
@@ -50,15 +50,27 @@ class UserSchedule extends CI_Controller{
 		$data['address'] = $position['address'];
 		$data['latitude'] = $position['latitude'];
 		$data['longitude'] = $position['longitude'];
+		$data['streetNumber'] = $position['streetNumber'];
+		$data['route'] = $position['route'];
+		$data['locality'] = $position['locality'];
+		$data['administrativeAreaLevel'] = $position['administrativeAreaLevel'];
+		$data['country'] = $position['country'];
+		$data['postCode'] = $position['postCode'];
 
 		//we now have a $data array with 'userId' and 'location'
+		//we create date data to insert into the schedule
+		$data['date'] = date("d.m.y");
+		$time = strtotime($data['timestart']);
+		$data['timestart'] = date('Y-m-d G-i-s', $time) ;
+		$data['timeEnd'] = date('Y-m-d G-i-s', strtotime('+'.$data['timeEnd'].'hour', $time));
+		
 
-		$query = $this->User_schedule_model->create($data);
+		$schedule_id = $this->User_schedule_model->create($data);
 
-		if($query){
+		if($schedule_id){
 
 			$this->output->set_status_header('201');
-			$content = $query; // resource id
+			$content = $schedule_id; // resource id
 			$code = 'success';
 
 		}else{
@@ -67,77 +79,70 @@ class UserSchedule extends CI_Controller{
 			$code = key($this->User_schedule_model->get_errors()); //gets the key of the get_errors()
 
 			if($code == 'validation_error'){
-				$this->output->set_status_header(400);
+			$this->output->set_status_header(400);
 			}elseif($code == 'system_error'){
-				$this->output->set_status_header(500);
+			$this->output->set_status_header(500);
 			}
-		
+
 		}
 
 		//match the
 
 		$output = array(
-			'content'	=> $content,
-			'code'		=> $code,
+		'content'	=> $content,
+		'code'	=> $code,
 		);
 
 		Template::compose(false, $output, 'json');
-
 	}
 
-	//takes an id of the schedule, and outputs the schedule and its matches
+	//this is the user id
+	//this will show the menu, all schedules that are part of a person's id
 	public function show($id){
 		
-		$this->authenticated();
+		//authenticate based on logged in and ownership
+		if($this->ion_auth->logged_in()){
 
-		$limit = $this->input->get('limit', true);
-		$limit = (empty($limit)) 10 : $limit;
-		$offset = $this->input->get('offset', true);
-		$offset = (empty($offset)) 0 : $offset;
+			//person needs to be logged in
 
-		//will store all matches
-		$matches = array();
+			$current_user = $this->ion_auth->user()->row();
 
-		//get the schedule from the db
+			//if the current user owns the id or is admin
+			if($current_user->id == $id OR $this->ion_auth->is_admin()){
 
-		$query = $this->User_schedule_model->read($id);
+				//setting up the pagination for limit and offset
+				$limit = $this->input->get('limit', true);
+				$limit = (empty($limit)) ? 10 : $limit;
+				$offset = $this->input->get('offset', true);
+				$offset = (empty($offset)) ? 0 : $offset;
 
-		if($query){
+				//returns all the schedules of the user
+				$query = $this->User_schedule_model->read($id);
 
-			//first do a position match
-			$user_latitude = $query['latitude'];
-			$user_longitude = $query['longitude'];
-			//$user_time = $query['time'];
+				$output = $query;
 
-			//array of all schedules
-			$all_schedules = $this->User_schedule_model->read_all($limit, $offset) //$user_time needs to be injected
+			}else{
 
-			foreach($all_schedules as $potential_match){
-				$distance = $this->Matching_model->distance($user_latitude, $potential_match['latitude'], $user_longitude, $potential_match['longitude']);
-				if($distance < 0.5){
-					//this is a match
-					$matches[$potential_match['id']] = $potential_match;
-				}
+				$this->output->set_status_header(403);
+
+				$output = array(
+					'content'	=> 'You are not authorised to view the schedules of user ' . $id . '.',
+					'code'		=> 'error',
+				);
+
 			}
-
-			//second do a time match
-			//FILTER BASED ON TIME NEED TO DO!
 
 		}else{
 
-			$this->output->set_status_header(404);
-			$content = current($this->User_schedule_model->get_errors());
-			$code = key($this->User_schedule_model->get_errors());
+			$this->output->set_status_header(403);
+			$output = array(
+				'content'	=> 'You need to be logged in to view your schedules.',
+				'code'		=> 'error',
+			);
 
 		}
 
-		$output = array(
-			'content' => $content,
-			'code' => $code,
-		);
-
 		Template::compose(false, $output, 'json');
-
 	}
 
 	//only accessible by admin
@@ -146,9 +151,7 @@ class UserSchedule extends CI_Controller{
 
 	}
 
-	private authenticated(){
-	 	//NOTHING
-	}
+	
 
 
 }

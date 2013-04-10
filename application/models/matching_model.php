@@ -1,10 +1,90 @@
 <?php
+
+use Polycademy\Validation\Validator;
+
 //assume that the google results are stored in schedules model
 class Matching_model extends CI_Model{
 
     protected $errors;
+    private $validator;
 
-	public function index(){}
+    public function __construct(){
+        parent::__construct();
+        $this->validator = new Validator;
+    }
+
+    public function owns_schedule($schedule_id, $user_id){
+        $rules = array(
+            'id'    => array(
+                'set_label:Schedule ID',
+                'Integer',
+            )
+        );
+
+        $this->validator->setup_rules($rules);
+
+        $data = array(
+            'id'    => $schedule_id,
+        );
+
+        if($this->validator->is_valid($data)){
+
+            $query = $this->db->get_where('schedules', array('id' => $schedule_id));
+
+            $result = $query->row();
+
+            if($result['userId'] == $user_id){
+                return $result;
+            }else{
+                $this->errors = array(
+                    'error' => 'The user ' . $user_id . ' does not own the schedule ' . $schedule_id,
+                );
+                return false;
+            }
+
+
+        }else{
+
+            $this->errors = array(
+                'validation_error' => $this->validator->get_errors(),
+            );
+
+            return false;
+
+        }
+
+    }
+
+    public function read_all($limit,$offset){
+        if($query){
+
+                    foreach($query->result() as $row){
+
+                        $data[] = array(
+                            'id'        => $row->id,
+                            'userId'    => $row->userId,
+                            'location'  => $row->location,
+                            'address'   => $row->address,
+                            'latitude'  => $row->latitude,
+                            'longitude' => $row->longitude,
+                            'timestart' => $row->timestart,
+                            'timeEnd'   => $row->timeEnd
+                        );
+
+                    }
+
+                    return $data;
+
+                }else{
+
+                    $this->errors = array(
+                        'error' => 'No schedules found!',
+                    );
+
+                    return false;
+
+                }
+    }
 
 
 // THE BELOW FUNCTION VincentyDistance IS FROM http://stackoverflow.com/questions/5236921/geo-search-distance-in-php-mysql-performance
@@ -63,20 +143,21 @@ class Matching_model extends CI_Model{
 
 	// }
 
-	public function matching($id){
+	public function matching(){
 
         //$date1 = $user->date; // to be insert into the table
+        $this->db->get('schedules');
 
-		$users = $this->ion_auth->users(2);
+		$query = $this->db->insert_id();
        
-// THIS CONDITION IS TO COMPARE WHETHER DISTANCEW BETWEEN 2 POINTS IS LESS THAN 0.5 KM
+        // THIS CONDITION IS TO COMPARE WHETHER DISTANCEW BETWEEN 2 POINTS IS LESS THAN 0.5 KM
 
-		if (!empty($users)){
-                $user = $this->ion_auth->user()->row();
+		if (!empty($query)){
+            
                 $lat1 = $user['latitude'];
                 $lon1 = $user['longitude'];
                 $start1 = $user['timestart'];
-                $length1 = $user['timelength'];
+                $length1 = $user['timeEnd'];
    				foreach ($users as $user)
    				{
    					$lat2 = $user['latitude'];
@@ -85,13 +166,13 @@ class Matching_model extends CI_Model{
 
 			      	if($d < 0.5){
 			      		//USE FUNCTION TO MATCH THE TIME
-                        return $d;
+                        return ;
 			      	}else{
 
                         $this->errors = array(
                             'error' => 'Could not match any schedule.'
                             );
-                        return false
+                        return false;
 			      		//DO NOTHING
 		      	   }
                 }

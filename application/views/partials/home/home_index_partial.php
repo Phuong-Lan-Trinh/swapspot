@@ -48,12 +48,12 @@
                     <div class="controls controls-row">
                         <div class="span3" style="margin-left:0px">
                             <label class="for_Time">I want to swap at</label>
-                            <input class="Time span3" type="time" placeholder="Time start">
+                            <input name="timestart" class="Time span3" type="time" placeholder="Time start">
                         </div>
                     
                         <div class="span3 inline">
-                            <label class="for_Timelength">for</label>
-                            <input class="Timelength span3" type="number" placeholder="Time length">
+                            <label class="for_TimeEnd">for</label>
+                            <input name="timeEnd" class="Timelength span3" type="text" placeholder="Time length">
                         </div>
                     </div>
                     <button class="btn btn-primary pull-right">Search to SWAP</button>

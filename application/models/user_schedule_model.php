@@ -29,47 +29,83 @@ class User_schedule_model extends CI_Model{
                 'set_label:location',
                 'NotEmpty',
                 'MinLength:5',
-                'MaxLength:255',
+                'MaxLength:255'
             ),
             'timestart' => array(
                 'set_label:Starttime',
                 'NotEmpty',
                 'MinLength:1',
-                'MaxLength:100',
+                'MaxLength:100'
             ),
-            'timelength' => array(
-                'set_label:Timelength',
+            'timeEnd' => array(
+                'set_label:TimeEnd',
                 'NotEmpty',
-                'AlphaNumericSpace',
                 'MinLength:1',
-                'MaxLength:100',
+                'MaxLength:100'
             ),
             'longitude' => array(
                 'set_label:Longitude',
                 'NotEmpty',
                 'MinLength:1',
-                'MaxLength:100',
+                'MaxLength:100'
             ),
             'latitude' => array(
                 'set_label:Latitude',
                 'NotEmpty',
                 'MinLength:1',
-                'MaxLength:100',
+                'MaxLength:100'
             ),
+            'streetNumber' => array(
+                'set_label:Street Number',
+                'NotEmpty',
+                'MinLength:1',
+                'MaxLength:100'
+            ), 
+            'route' => array(
+                'set_label:Route',
+                'NotEmpty',
+                'MinLength:1',
+                'MaxLength:100'
+            ),
+            'locality' => array(
+                'set_label:Locality',
+                'NotEmpty',
+                'MinLength:1',
+                'MaxLength:100'
+            ),
+            'administrativeAreaLevel' => array(
+                'set_label:Administrative area level',
+                'NotEmpty',
+                'MinLength:1',
+                'MaxLength:100'
+            ),
+            'country' => array(
+                'set_label:Country',
+                'NotEmpty',
+                'MinLength:1',
+                'MaxLength:100'
+            ),
+            'postCode' => array(
+                'set_label:Post code',
+                'NotEmpty',
+                'MinLength:1',
+                'MaxLength:100'
+            )
         );
 
         $this->validator->setup_rules($rules);
 
-
+        //VALIDATE THE DATA FIELDS AND INSERT DATA INTO THE TABLE
         if(!$this->validator->is_valid($data)){
 
             //returns array of key for data and value
             $this->errors = array(
-                'validation_error' => $this->validator->get_errors();
+                'validation_error' => $this->validator->get_errors()
                 );
             return false;
 
         }
+
 
         $query = $this->db->insert('schedules', $data);
          
@@ -93,41 +129,55 @@ class User_schedule_model extends CI_Model{
 
     }
 
+    //take the user id, and return all schedules that are part of the user
     public function read($id){
 
-        $query = $this->db->get_where('schedules', array('id' => $id));
+        $this->db->limit($limit,$offset);
+        $query = $this->db->get_where('schedules', array('userId' => $id));
 
         if($query->num_rows() > 0){
-            $row = $query->row();
-            $data = array(
-                'id'        => $id,
-                'userId'    => $row->userId,
-                'location'  => $row->location,
-                'address'   => $row->address,
-                'latitude'  => $row->latitude,
-                'longitude' => $row->longitude,
-                'timestart' => $row->timestart,
-                'timelength'=> $row->timelength,
-            );
+
+            foreach($query->result() as $row){
+
+                $data[] = array(
+                    'id'        => $row->id,
+                    'userId'    => $id,
+                    'location'  => $row->location,
+                    'address'   => $row->address,
+                    'latitude'  => $row->latitude,
+                    'longitude' => $row->longitude,
+                    'timestart' => $row->timestart,
+                    'timeEnd'   => $row->timeEnd,
+
+                );
+
+            }
+
             return $data;
+
         }else{
+
             $this->errors = array(
-            'error'  => 'Could not find specified schedules.',
+                'error'  => 'Could not find specified schedules for user ' . $id . '.',
             );
+
             return false;
+
         }
 
     }
 
-    public function read_all($limit = 10, $offset = 0){
+
+
+    public function read_all($limit,$offset){
 
         $this->db->select('*');
         $this->db->limit($limit, $offset);
-        $query = $this->db->get('schedules')
+        $query = $this->db->get('schedules');
         // $sql = 'SELECT * FROM schedules LIMIT ?, ?';
         // $query = $this->db->query($sql, array(10, 0));
-
-        if($query->num_rows > 0){
+      
+        if($query){
 
             foreach($query->result() as $row){
 
@@ -139,7 +189,7 @@ class User_schedule_model extends CI_Model{
                     'latitude'  => $row->latitude,
                     'longitude' => $row->longitude,
                     'timestart' => $row->timestart,
-                    'timelength'=> $row->timelength,
+                    'timeEnd'   => $row->timeEnd
                 );
 
             }
@@ -156,7 +206,7 @@ class User_schedule_model extends CI_Model{
 
         }
 
-    }
+     }
 
     
     public function update($id, $data){
@@ -178,14 +228,12 @@ class User_schedule_model extends CI_Model{
             'timestart' => array(
                 'set_label:start time',
                 'NotEmpty',
-                'AlphaNumericSpace',
                 'MinLength:5',
                 'MaxLength:100',
             ),
-            'timelength' => array(
-                'set_label:time length',
+            'timeEnd' => array(
+                'set_label:time end',
                 'NotEmpty',
-                'AlphaNumericSpace',
                 'MinLength:5',
                 'MaxLength:100',
             ),
@@ -202,7 +250,44 @@ class User_schedule_model extends CI_Model{
                 'AlphaNumericSpace',
                 'MinLength:5',
                 'MaxLength:100',
-            ),    
+            ), 
+            'streetNumber' => array(
+                'set_label:Street Number',
+                'NotEmpty',
+                'MinLength:1',
+                'MaxLength:100'
+            ), 
+            'route' => array(
+                'set_label:Route',
+                'NotEmpty',
+                'MinLength:1',
+                'MaxLength:100'
+            ),
+            'locality' => array(
+                'set_label:Locality',
+                'NotEmpty',
+                'MinLength:1',
+                'MaxLength:100'
+            ),
+            'administrativeAreaLevel' => array(
+                'set_label:Administrative area level',
+                'NotEmpty',
+                'MinLength:1',
+                'MaxLength:100'
+            ),
+            'country' => array(
+                'set_label:Country',
+                'NotEmpty',
+                'MinLength:1',
+                'MaxLength:100'
+            ),
+            'postCode' => array(
+                'set_label:Post code',
+                'NotEmpty',
+                'MinLength:1',
+                'MaxLength:100'
+            )
+
         ));
 
         if(!$this->validator->is_valid($data)){

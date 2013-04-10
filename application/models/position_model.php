@@ -19,12 +19,17 @@ class Position_model extends CI_Model{
 
 		$json = json_decode($response->getBody(), true);
 
-		if($json["results"][0]["formatted_address"] AND $json["results"][0]["geometry"]["viewport"]["northeast"]){
+		if($json["results"]){
 			
 			$position["address"] = $json["results"][0]["formatted_address"];
 			$position["latitude"] = $json["results"][0]["geometry"]["viewport"]["northeast"]["lat"];
 			$position["longitude"] = $json["results"][0]["geometry"]["viewport"]["northeast"]["lng"];
-
+			$position['streetNumber'] =  $json["results"][0]["address_components"][0]["short_name"];
+			$position['route'] =  $json["results"][0]["address_components"][1]["short_name"];
+			$position['locality'] =  $json["results"][0]["address_components"][2]["short_name"];
+			$position['administrativeAreaLevel'] =  $json["results"][0]["address_components"][3]["short_name"];
+			$position['country'] =  $json["results"][0]["address_components"][4]["short_name"];
+			$position['postCode'] =  $json["results"][0]["address_components"][5]["short_name"];
 			// $code = 'success';
 			// $content = 'LOCATION FOUND ... I AM AWESOME';
 			// $this->output->set_status_header(201);
