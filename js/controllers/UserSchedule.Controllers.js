@@ -1,5 +1,6 @@
-'user strict';
- angular.module('Controllers')
+'use strict';
+
+angular.module('Controllers')
 	.controller('UserScheduleIndexCtrl',[
 		'$scope',
 		'UserScheduleServ',
@@ -8,9 +9,9 @@
 				[],
 				function (response){
 					console.log(response);
-				},
+				}
 			
 			);
 		}
 		
-		])
+	]);

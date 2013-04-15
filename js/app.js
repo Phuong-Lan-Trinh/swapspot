@@ -11,6 +11,8 @@ var app = angular.module('App', [
 	'Directives',
 	'ngResource', //for RESTful resources
 	'ngCookies',// for cookies manipulation
+	'ui', //from angular UI
+    'ui.bootstrap' 
 ]);
 
 //Define all the page level controllers (Application Logic)
@@ -56,22 +58,23 @@ app.config(
 	]);
 	
 //GLOBAL FEATURES
-app.run([
-	'$rootScope',
-	'$cookies',
-	'$http',
-	function($rootScope, $cookies, $http){
+app.run(
+	[
+		'$rootScope',
+		'$cookies',
+		'$http',
+		function($rootScope, $cookies, $http){
 
-		//XSRF INTEGRATION
-		$rootScope
-			.$watch(
-				function(){
-					return $cookies[serverVars.csrfCookieName]; // if this function see any differences from the second iteration to the previous one it will tell the browser to change
-				},
-				function(){
-					$http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies[serverVars.csrfCookieName]; 
-				}
-			);	
-	}
+			//XSRF INTEGRATION
+			$rootScope
+				.$watch(
+					function(){
+						return $cookies[serverVars.csrfCookieName]; // if this function see any differences from the second iteration to the previous one it will tell the browser to change
+					},
+					function(){
+						$http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies[serverVars.csrfCookieName]; 
+					}
+				);	
+		}
 ]);
 	

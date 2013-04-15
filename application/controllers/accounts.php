@@ -14,7 +14,53 @@ class Accounts extends CI_Controller{
 
 	public function index(){}
 
-	public function show($id){}
+	public function show($id){
+
+		
+		if($this->ion_auth->logged_in()){
+			//logged in
+
+			//check if the current user owns the id
+			$current_user = $this->ion_auth->user()->row();
+
+			if($current_user->id == $id OR $this->ion_auth->is_admin()){
+
+				$selected_user = $this->ion_auth->user($id)->row();
+				$groups = $this->ion_auth->get_users_groups($id)->result_array();
+
+				//need group...
+				$output = array(
+					'content'	=> array(
+					'id'	=> $selected_user->id,
+					'ipAddress'	=> inet_ntop($selected_user->ipAddress), //processed from binary format, only used in MySQL...
+					'username'	=> $selected_user->username,
+					'email'	=> $selected_user->email,
+					'createdOn'	=> $selected_user->createdOn,
+					'lastLogin'	=> $selected_user->lastLogin,
+					'active'	=> $selected_user->active,
+					'groups'	=> $groups,
+				),
+				'code'	=> 'success',
+				);
+
+			}
+
+		}else{
+		//not logged in
+
+			$this->output->set_status_header(401);
+
+			$output = array(
+				'content'	=> 'You are unauthorised to view user data without logging in.',
+				'code'	=> 'error',
+			);
+
+		}
+
+		Template::compose(false, $output, 'json');
+
+
+	}
 
 	//Use POST HTTP method
 	public function create(){

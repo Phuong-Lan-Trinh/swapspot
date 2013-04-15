@@ -2,11 +2,11 @@
 
 angular.module('Services')
 	.factory('HomeServ', [
-			$resource,
+			'$resource',
 			function($resource){
 				return $resource(
 					'api/home/:id',
 					{}
-				)
+				);
 			}
 		]);

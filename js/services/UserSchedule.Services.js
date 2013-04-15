@@ -1,1 +1,1 @@
-'use strict';angular.module('Services')	.factory('UserSchedule', [		'$resource',		function($resource){			return $resource(				'api/userschedule/:id',				{},			)		}	])
+'use strict';angular.module('Services')	.factory('UserSchedule', [		'$resource',		function($resource){			return $resource(				'api/userschedule/:id',				{}			);		}	]);

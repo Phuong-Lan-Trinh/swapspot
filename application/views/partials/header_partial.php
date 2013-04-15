@@ -14,6 +14,16 @@
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <base href="<?= base_url() ?>" />
+        <!--[if lte IE 8]>
+            <script>
+                // The ieshiv takes care of our ui.directives, bootstrap module directives and
+                // AngularJS's ng-view, ng-include, ng-pluralize and ng-switch directives.
+                // However, IF you have custom directives (yours or someone else's) then
+                // enumerate the list of tags in window.myCustomTags
+                //window.myCustomTags = [ 'yourDirective' ];
+            </script>
+            <script src="js/vendor/angular-ui-ieshiv.min.js"></script>
+        <![endif]-->        
     </head>
     <body>
         <!--[if lt IE 7]>
