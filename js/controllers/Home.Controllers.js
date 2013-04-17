@@ -6,7 +6,7 @@ angular.module('Controllers')
 	.controller('HomeIndexCtrl', [
 			'$scope',
 			function($scope){
-			$scope.data = 'HELLO!';
+			$scope.timeStart = 'timeStart';
 			}		
 		]);
 	

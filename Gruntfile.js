@@ -51,7 +51,7 @@ module.exports = function(grunt){
 						'js/filters/*.js', 
 						'js/services/*.js', 
 						'js/animations/*.js'
-					],
+				],
 				dest: 'js/main.min.js'
 			}
 		},
@@ -63,24 +63,25 @@ module.exports = function(grunt){
 				esnext: true,
 				globalstrict: true,
 				browser: true,
-				expr: true,
+				expr: true, //allows expressions such as 'use strict';
+				devel: true, //false when doing true production
 				globals: {
 					jQuery: true,
+					$: true,
 					angular: true,
 					serverVars: true
 				}
 			},
-			beforeconcat:[
-							'js/app.js', 
-							'js/controllers/*.js', 
-							'js/directives/*.js', 
-							'js/filters/*.js', 
-							'js/services/*.js', 
-							'js/animations/*.js'
+			beforeconcat: [
+				'js/app.js', 
+				'js/controllers/*.js', 
+				'js/directives/*.js', 
+				'js/filters/*.js', 
+				'js/services/*.js', 
+				'js/animations/*.js'
 			],
-			afterconcat:['js/main.min.js']
+			afterconcat: ['js/main.min.js']
 		},
-
 		uglify: {
 			options: {
 				banner: '/*! <%= pkg.name %> built on <%= grunt.template.today("yyyy-mm-dd") %> by <%= pkg.author %> */\n' //setting up the top line comment
@@ -184,6 +185,6 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	
-	grunt.registerTask('default', ['less', 'concat', 'uglify', 'clean', 'copy', 'replace','jshint']);
+	grunt.registerTask('default', ['less', 'concat', 'jshint', 'uglify', 'clean', 'copy', 'replace']);
 
 };

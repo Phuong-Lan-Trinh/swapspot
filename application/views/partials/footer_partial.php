@@ -14,6 +14,7 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+        <script src="js/vendor/jquery.timepicker.min.js"></script>
         <script>window.angular || document.write('<script src="js/vendor/angular.min.js"><\/script>')</script>
         <script src="js/vendor/angular-cookies.min.js"></script>
         <script src="js/vendor/angular-resource.min.js"></script>

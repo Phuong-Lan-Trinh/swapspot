@@ -5,7 +5,7 @@ angular.module('Services')
 			'$resource',
 			function($resource){
 				return $resource(
-					'api/home/:id',
+					'api/home/:homeId',
 					{}
 				);
 			}
