@@ -14,7 +14,7 @@ class Matchedschedules extends CI_Controller{
 
 	public function index(){
 
-
+	
 
 	}
 
@@ -26,7 +26,7 @@ class Matchedschedules extends CI_Controller{
 		$limit = $this->input->get('limit', true);
 		$kmrange = (empty($kmrange)) ? '0.5' : $kmrange;
 		$offset = (empty($offset)) ? '0' : $offset;
-		$limit = (empty($limit)) ? '10' : $limit;
+		$limit = (empty($limit)) ? '7' : $limit;
 
 
 		//check if the person is logged in

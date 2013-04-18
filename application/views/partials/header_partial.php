@@ -29,7 +29,8 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-        <header class="navbar navbar-static-top">
+        
+        <header class="navbar navbar-static-top" ng-controller="AuthIndexCtrl">
             <div class="container">
 				<div class="navbar-inner">
                     <a class="logo" href="#"><img src="" /></a>
@@ -47,17 +48,27 @@
                             <li><a href="#">Contact</a></li>
 						</ul>
                         <div>
-                            <form class="navbar-form pull-right">
-                                <input name="email" class="span2" type="text" placeholder="Email">
-                                <input name="password" class="span2" type="password" placeholder="Password">
+                            <form name="loginForm" ng-hide="state" ng-submit="login()" class="navbar-form pull-right">
+                                <input id="email" ng-model="loginForm.email" class="span2" type="text" placeholder="Email">
+                                <input id="password" ng-model="loginForm.password" class="span2" type="password" placeholder="Password">
                                 <label class="checkbox inline" for="form_remember">
                                     <input id="for_remember" type="checkbox" checked="checked">
                                      <small><small>Remember</small></small>&nbsp;
                                 </label>
-                                <button name="submit" class="btn pull-right" type="submit" style="inline">Sign in</button>
+                                <button name="submit" class="btn pull-right" type="submit" style="inline" value="true">Sign in</button>
                            </form>
                         </div>
+
+
+                        <div ng-show="state" class="nav-collapse collapse">
+                            <ul class="nav pull-right">
+                                <li style="padding:10px 15px">Welcome to SWAPSPOT</li>
+                                <li><a href="" ng-click="logout()">Logout</a></li>
+                            </ul>
+                        </div>
+
 					</div>
 				</div>                
             </div>
         </header>
+        </script>

@@ -91,8 +91,7 @@ Pigeon::map(function($r){
 		//migration comment these in production
 		$r->get('migrate', 'migrate/index');
 		$r->get('migrate/revert', 'migrate/revert');
-		//test
-		$r->resources('dummy');
+		
 	});
 	
 	//Route everything else to AngularJS, no parameters allowed!

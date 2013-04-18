@@ -41,8 +41,8 @@ class UserSchedule extends CI_Controller{
 
 		$this->authenticated();
 
-		$data = $this->input->json(false, true);	
-
+		$data = $this->input->json(false, true);
+		
 		$data['userId'] = $this->ion_auth->user()->row()->id;
 
 		$position = $this->Position_model->get_location($data['location']);
@@ -96,9 +96,34 @@ class UserSchedule extends CI_Controller{
 		Template::compose(false, $output, 'json');
 	}
 
+
+	//this will show the current schedule of the person
+	public function show($id){
+
+		//authenticate based on logged in and ownership
+		if($this->ion_auth->logged_in()){
+			//person needs to be logged in
+			$current_user = $this->ion_auth->user()->row();
+			$current_schedule = $this->User_schedule_model->read_current($schedule_id, $current_user);
+
+			$output = $current_schedule;
+
+			
+		}else{
+
+			$this->output->set_status_header(403);
+			$output = array(
+				'content'	=> 'You need to be logged in to view your schedules.',
+				'code'		=> 'error',
+			);
+
+		}
+	}
+
+
 	//this is the user id
 	//this will show the menu, all schedules that are part of a person's id
-	public function show($id){
+	public function show_all($id){
 		
 		//authenticate based on logged in and ownership
 		if($this->ion_auth->logged_in()){

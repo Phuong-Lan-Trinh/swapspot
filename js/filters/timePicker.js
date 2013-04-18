@@ -25,8 +25,8 @@ angular.module('Directives')
 						'minTime': scope.timeStart,
 						'maxTime': '11:00pm',
 						'showDuration': true
-					})
+					});
 				}
-			}
+			};
 		}
 	]);

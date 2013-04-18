@@ -47,6 +47,14 @@ app.config(
 						controller: 'HomeIndexCtrl'
 					}
 				)
+				.when(
+					'/matchedschedules',
+					{
+						templateUrl: 'matched_schedules.html',
+						controller: 'MatchedScheduleIndexCtrl'
+					}
+
+				)
 				.otherwise(
 					{
 						redirectTo: '/'

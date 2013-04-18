@@ -20,6 +20,8 @@
         <script src="js/vendor/angular-resource.min.js"></script>
         <script src="js/vendor/angular-ui.min.js"></script> 
         <script src="js/vendor/ui-bootstrap-tpls-0.2.0.min.js"></script> 
+        <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+
 
         <!-- Shims and Shivs and Other Useful Things -->
         <!--[if lt IE 9]><script src="js/vendor/es5-shim.min.js"></script><![endif]-->

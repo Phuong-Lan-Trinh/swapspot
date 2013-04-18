@@ -129,6 +129,37 @@ class User_schedule_model extends CI_Model{
 
     }
 
+    public function read_current($schedule_id, $user_id){
+
+        $rules = array(
+            'id'    => array(
+                'set_label:Schedule ID',
+                'Number'
+            )
+        );
+
+        $this->validator->setup_rules($rules);
+
+        $data = array(
+            'id'    => $schedule_id,
+        );
+
+        if($this->validator->is_valid($data)){
+
+            $query = $this->db->get_where('schedules', array('id' => $schedule_id));
+
+            $result = $query->row();
+        }else{
+
+        $this->errors = array(
+                'error'  => 'Could not find current schedules for user ' . $user_id . '.',
+            );
+
+            return false;    
+        }
+
+    }
+
     //take the user id, and return all schedules that are part of the user
     public function read($id){
 
